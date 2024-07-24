@@ -1,0 +1,269 @@
+.App {
+  text-align: center;
+}
+
+
+/* Genel scrollbar ayarları */
+::-webkit-scrollbar {
+  width: 2vh; 
+}
+
+/* Yatay scrollbar */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Scrollbar arka plan rengi */
+  border-radius: 1vh; /* Scrollbar kenar yuvarlama */
+}
+
+/* Yatay scrollbar için dolgu rengi */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Scrollbar dolgu rengi */
+  border-radius: 1vh; /* Scrollbar kenar yuvarlama */
+}
+
+/* Yatay scrollbar üzerine gelindiğinde */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Scrollbar üzerine gelindiğindeki dolgu rengi */
+}
+
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+body {
+  font-family: "Roboto", sans-serif; /* Örnek olarak Roboto fontunu kullandık */
+  background-color: #f8f7fa;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*INPUT STYLE*/
+
+.input-field {
+  width: 100%;
+}
+.input-field .MuiInputLabel-root {
+  font-weight: bold;
+}
+.input-field .MuiOutlinedInput-root {
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.input-field .MuiOutlinedInput-input {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.input-field .MuiInputAdornment-root .MuiIconButton-root {
+  padding: 8px;
+}
+.input-field
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #786af2; /* Örneğin: #ff6b6b */
+}
+
+.input-field .MuiInputLabel-root.Mui-focused {
+  color: #786af2; /* Etiket rengi için, örneğin: #ff6b6b */
+}
+
+/*INPUT STYLE*/
+
+/*BUTTON STYLE*/
+
+.custom-button {
+  background-color: #7367f0 !important;
+  width: 100%;
+  text-transform: none !important;
+}
+.unframed-button {
+  text-transform: none !important;
+}
+
+.custom-button:hover {
+  background-color: #675cd8 !important;
+}
+
+.selected-button {
+  background-color: #7367f0 !important;
+
+  text-transform: none !important;
+}
+.selected-button:hover {
+  background-color: #675cd8 !important;
+}
+
+.unselected-button {
+  text-transform: none !important;
+  color: black !important;
+}
+.unselected-button:hover {
+  text-transform: none !important;
+  background-color: rgba(115, 103, 240, 0.3) !important;
+  color: #7367f0 !important;
+}
+/*BUTTON STYLE*/
+
+/*CHECKBOX STYLE*/
+.default-checked.MuiCheckbox-root.Mui-checked {
+  color: #786af2 !important;
+}
+.default-checked.MuiCheckbox-root.Mui-checked:hover {
+  color: #675cd8 !important;
+}
+.default-checked.MuiCheckbox-root:hover {
+  color: #675cd8 !important;
+}
+/*CHECKBOX STYLE*/
+
+/* NAVBAR STYLE*/
+.navbar {
+  background-color: #ffffff;
+  padding: 1vh;
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1vh;
+  margin-top: 2vh;
+  margin-right: 3vh;
+
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 1vh;
+}
+
+.navbar-button {
+  border-radius: 50%;
+  min-width: 0;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  box-shadow: none;
+}
+
+.navbar-button:hover {
+  background-color: rgba(126, 126, 126, 0.5);
+}
+
+/* NAVBAR STYLE*/
+
+/*HOMEPAGE GRİDS*/
+.homePageGrids {
+  margin-right: 100px;
+}
+
+/*HOMEPAGE GRİDS*/
+
+/* GRID AREA*/
+.grid-area {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 3vh;
+  border-radius: 1vh;
+  padding: 3vh;
+  display: "flex" !important;
+}
+
+/* GRID AREA*/
+
+/*SİDEBAR MENU*/
+
+.selected-menu-item {
+  background-color: #5c5ed8 !important;
+  border-radius: 1vh !important;
+  color: white !important;
+}
+.selected-menu-item .MuiListItemText-primary {
+  color: white !important;
+}
+.selected-menu-item .MuiListItemIcon-root {
+  color: white !important;
+}
+
+.unselected-menu-item {
+  position: relative;
+  overflow: hidden;
+  height: 3rem;
+  border-radius: 1vh;
+  background: #3d3a4e;
+  background-size: 300%;
+  border: none;
+  cursor: pointer;
+}
+
+
+.unselected-menu-item:hover::before {
+  transform: scaleX(1);
+}
+
+
+
+.unselected-menu-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: 1vh;
+  background-color: rgba(48, 92, 238, 0.3) !important;
+  transition: all 0.475s;
+}
+
+/*DATEPICKER BUTTON*/
+.date-button {
+  background-color: #d6e9f3 !important;
+  color:#1ea2f2 !important;
+  text-transform: none !important;
+}
+.date-button:hover {
+  background-color: #e2ecf1 !important;
+  color:#120996 !important;
+  
+}
+/*DATEPICKER BUTTON*/
+
+/*ADMIN BUTTON*/
+.admin-button {
+  background-color: #d6e9f3 !important;
+  color:#1ea2f2 !important;
+  text-transform: none !important;
+}
+.admin-button:hover {
+  /* background-color: #e2ecf1 !important; */
+  color:#2628be !important;
+  
+}
+/*ADMIN BUTTON*/
