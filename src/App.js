@@ -48,6 +48,7 @@ function AppRoutes() {
   useEffect(() => {
     const checkAuth = async () => {
       const jwtToken = cookies.get("jwt-access");
+    
       if (jwtToken) {
         const decodedToken = jwtDecode(jwtToken);
         const userRole = decodedToken.role;
@@ -58,6 +59,10 @@ function AppRoutes() {
           location.pathname.startsWith("/admin")
         ) {
           navigate("/NotFound");
+        }
+      }else if (!jwtToken) {
+        if (!['/register', '/forgot-password', '/login'].includes(location.pathname)) {
+          navigate("/login");
         }
       }
       setIsLoading(false);
