@@ -1,25 +1,76 @@
-const fs = require('fs');
+#!/usr/bin/env node
+const util = require('util');
 const path = require('path');
+const fs = require('fs');
 const { execSync } = require('child_process');
 
-// Kullanıcının proje adını alın
-const projectName = process.argv[2];
+const exec = util.promisify(require('child_process').exec);
+async function runCmd(command) {
+  try {
+    const { stdout, stderr } = await exec(command);
+    console.log(stdout);
+    console.log(stderr);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-if (!projectName) {
-  console.log('Lütfen bir proje adı belirtin');
+if (process.argv.length < 3) {
+  console.log('Lütfen hedef proje dizinini belirtin.');
+  console.log('Örneğin:');
+  console.log('    npx create-rahat-react-app my-app');
   process.exit(1);
 }
 
-// Yeni proje dizinini oluşturun
-const currentDir = process.cwd();
-const projectDir = path.join(currentDir, projectName);
-fs.mkdirSync(projectDir, { recursive: true });
+const ownPath = process.cwd();
+const folderName = process.argv[2];
+const appPath = path.join(ownPath, folderName);
+const repo = 'https://github.com/MSTFTKR/react-rahat-sistem-template.git';
 
-// Template dosyalarınızı kopyalayın
-// Bu kısımda, kendi template dosyalarınızı kopyalamak için gerekli kodu yazın
+try {
+  fs.mkdirSync(appPath);
+} catch (err) {
+  if (err.code === 'EEXIST') {
+    console.log('Dizin zaten mevcut. Lütfen proje için başka bir ad seçin.');
+  } else {
+    console.log(err);
+  }
+  process.exit(1);
+}
 
-// Bağımlılıkları yükleyin
-console.log('Bağımlılıklar yükleniyor...');
-execSync('npm install', { cwd: projectDir, stdio: 'inherit' });
+async function setup() {
+  try {
+    console.log(`${repo} adresinden dosyalar indiriliyor`);
+    await runCmd(`git clone --depth 1 ${repo} ${folderName}`);
+    console.log('Klonlama başarılı.');
+    console.log('');
 
-console.log(`${projectName} başarıyla oluşturuldu!`);
+    process.chdir(appPath);
+
+    console.log('Bağımlılıklar yükleniyor...');
+    await runCmd('npm install');
+    console.log('Bağımlılıklar başarıyla yüklendi.');
+    console.log();
+
+    // .git klasörünü sil
+    await runCmd('npx rimraf ./.git');
+
+    // React projesine özel gereksiz dosyaları sil
+    fs.unlinkSync(path.join(appPath, 'src', 'logo.svg'));
+    fs.unlinkSync(path.join(appPath, 'src', 'App.test.js'));
+
+    console.log('Kurulum tamamlandı!');
+    console.log();
+
+    console.log('Başlamak için şu komutları kullanmanızı öneriyoruz:');
+    console.log(`    cd ${folderName}`);
+    console.log('    npm start');
+    console.log();
+    console.log('Özel şablonunuza dayalı yeni React uygulamanızın keyfini çıkarın!');
+    console.log('Daha fazla bilgi için README.md dosyasını kontrol edin.');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+setup();

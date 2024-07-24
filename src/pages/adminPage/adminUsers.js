@@ -76,17 +76,14 @@ function AdminUsers() {
 
   const fakeData = [
     {
-      faturaNo: "GIB2024000217",
-      yon: "Gelen",
+      faturaNo: "2424",
       faturaProfili: "EARSIVFATURA",
       tip: "SATIS",
       tarih: "24/06/2024",
-      gondericiVkn: "291010012",
-      gondericiUnvan: "DENGE OSGB DANIŞMA...",
-      aliciVkn: "140076",
-      aliciUnvan: "BANTSAN SANAYI VE TIC...",
-      lucaHesapKodu: "",
-      lucaHesapAdi: "",
+      gondericiVkn: "4444444444",
+      gondericiUnvan: "göndirici...",
+      aliciVkn: "144444444444",
+      aliciUnvan: "BASANAYI VE TIC...",
       subDetails: [
         //buraya detail objesi yerleştirilecek details: details gibi
         { description: "Detail 1" },
@@ -94,17 +91,14 @@ function AdminUsers() {
       ],
     },
     {
-      faturaNo: "GIB20240001217",
-      yon: "Gelen",
+      faturaNo: "1233",
       faturaProfili: "EARSIVFATURA",
       tip: "SATIS",
       tarih: "23/06/2024",
-      gondericiVkn: "299292",
-      gondericiUnvan: "DENGE OSGB DANIŞMA...",
-      aliciVkn: "400366",
-      aliciUnvan: "BANTSAN",
-      lucaHesapKodu: "",
-      lucaHesapAdi: "",
+      gondericiVkn: "3223423432",
+      gondericiUnvan: "gön yön...",
+      aliciVkn: "1222221212",
+      aliciUnvan: "alici2",
       subDetails: [
         //buraya detail objesi yerleştirilecek details: details gibi
         { description: "Detail 1" },
