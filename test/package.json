@@ -1,7 +1,6 @@
 {
-  "name": "react-rahat-sistem-template",
-  "version": "1.0.2",
-  "private": false,
+  "name": "react-rahat-template",
+  "version": "1.0.1",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -42,7 +41,6 @@
   },
   
   "author": "Mustafa Teker",
-  "repository": "https://github.com/MSTFTKR/react-rahat-sistem-template.git",
   "scripts": {
     "dev": "react-scripts start",
     "start": "serve -s build",

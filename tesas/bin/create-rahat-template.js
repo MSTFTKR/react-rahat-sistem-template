@@ -48,7 +48,7 @@ async function setup() {
     process.chdir(appPath);
 
     console.log('Bağımlılıklar yükleniyor...');
-    await runCmd('npm install --legacy-peer-deps');
+    await runCmd('npm install');
     console.log('Bağımlılıklar başarıyla yüklendi.');
     console.log();
 
@@ -64,7 +64,7 @@ async function setup() {
 
     console.log('Başlamak için şu komutları kullanmanızı öneriyoruz:');
     console.log(`    cd ${folderName}`);
-    console.log('    npm run dev');
+    console.log('    npm start');
     console.log();
     console.log('Özel şablonunuza dayalı yeni React uygulamanızın keyfini çıkarın!');
     console.log('Daha fazla bilgi için README.md dosyasını kontrol edin.');
