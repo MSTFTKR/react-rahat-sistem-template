@@ -38,7 +38,7 @@
     "web-vitals": "^2.1.4"
   },
   "bin": {
-    "create-rahat-react-app": "./bin/create-rahat-template.js"
+    "create-rahat-sistem-template": "./bin/create-rahat-sistem-template.js"
   },
   
   "author": "Mustafa Teker",

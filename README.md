@@ -8,7 +8,7 @@ By running a single command, you will get a production-ready React app installed
 To create a project, simply run:
 
 ```bash
-npx create-rahat-react-app <project-name>
+npx create-rahat-sistem-template <project-name>
 ```
 
 

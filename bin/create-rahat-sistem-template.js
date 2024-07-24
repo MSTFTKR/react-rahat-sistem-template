@@ -18,7 +18,7 @@ async function runCmd(command) {
 if (process.argv.length < 3) {
   console.log('Lütfen hedef proje dizinini belirtin.');
   console.log('Örneğin:');
-  console.log('    npx create-rahat-react-app my-app');
+  console.log('    npx create-rahat-sistem-template my-app');
   process.exit(1);
 }
 
@@ -43,7 +43,6 @@ async function setup() {
     console.log(`${repo} adresinden dosyalar indiriliyor`);
     await runCmd(`git clone --depth 1 ${repo} ${folderName}`);
     console.log('Klonlama başarılı.');
-    console.log('');
 
     process.chdir(appPath);
 
@@ -55,17 +54,12 @@ async function setup() {
     // .git klasörünü sil
     await runCmd('npx rimraf ./.git');
 
-    // React projesine özel gereksiz dosyaları sil
-    fs.unlinkSync(path.join(appPath, 'src', 'logo.svg'));
-    fs.unlinkSync(path.join(appPath, 'src', 'App.test.js'));
 
     console.log('Kurulum tamamlandı!');
-    console.log();
 
     console.log('Başlamak için şu komutları kullanmanızı öneriyoruz:');
     console.log(`    cd ${folderName}`);
     console.log('    npm run dev');
-    console.log();
     console.log('Özel şablonunuza dayalı yeni React uygulamanızın keyfini çıkarın!');
     console.log('Daha fazla bilgi için README.md dosyasını kontrol edin.');
   } catch (error) {
