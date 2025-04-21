@@ -1,4 +1,4 @@
-import  { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "../../components/sideBar/sideBar";
 import Navbar from "../../components/navbar/navbar";
 import localStorage from "local-storage";
@@ -12,14 +12,12 @@ import {
   CardContent,
   Divider,
 } from "@mui/material";
-import images1 from "../../assets/images/images1.jpg"
-import images2 from "../../assets/images/images2.jpg"
-import images3 from "../../assets/images/images3.png"
+import images1 from "../../assets/images/images1.jpg";
+import images2 from "../../assets/images/images2.jpg";
+import images3 from "../../assets/images/images3.png";
 
 function HomePage() {
-  const [isOpen, setIsOpen] = useState(false);
-
-
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const sideBarOpen = localStorage.get("sidebar");
@@ -51,75 +49,109 @@ function HomePage() {
 
   return (
     <Grid container>
-      <Grid item md={isOpen ? 2.3 : 0.7}>
-        <Sidebar status={isOpen} toggleSidebar={toggleSidebar} location={'homePage'} />
+      <Grid
+        item
+        sx={{
+          flexBasis: isOpen ? "275px" : "95px",
+          flexShrink: 0,
+          transition: "flex-basis 0.3s ease",
+        }}
+        zIndex={1}
+      >
+        <Sidebar
+          status={isOpen}
+          toggleSidebar={toggleSidebar}
+          location={"homePage"}
+        />
       </Grid>
       <Grid
         item
-        md={isOpen ? 9.7 : 11.3}
+        zIndex={0}
         sx={{
+          flex: 1,
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "column",
-          pr:"4vh",gap:1
+          gap: 1,
+          pr: "12px",
         }}
       >
-
-        <Grid item md={12} >
+        <Grid item md={12}>
           <Navbar />
         </Grid>
-        <Grid item md={12} sx={{ marginRight: "4vh",display:"flex", flexDirection:"column",gap:1 }}>
-          <Grid item md={12} sx={{ display: "flex", alignItems: "center", gap:2 }}>
-            <Typography variant="h6" >
-              Kontrol Paneli
-            </Typography>
-              <Divider
-                orientation="vertical"
-                flexItem
-                md={{ height: '5vh', my: 2 }}
-              />
+        <Grid
+          item
+          md={12}
+          sx={{
+            marginRight: "4vh",
+            display: "flex",
+            flexDirection: "column",
+            gap: 1,
+          }}
+        >
+          <Grid
+            item
+            md={12}
+            sx={{ display: "flex", alignItems: "center", gap: 2 }}
+          >
+            <Typography variant="h6">Kontrol Paneli</Typography>
+            <Divider
+              orientation="vertical"
+              flexItem
+              md={{ height: "5vh", my: 2 }}
+            />
 
-            <Typography variant="subtitle1" >
-              Firmalar
-            </Typography>
+            <Typography variant="subtitle1">Firmalar</Typography>
           </Grid>
 
-          <Grid item md={12}  >
-            <Alert severity="info" sx={{marginBottom:"2vh", borderRadius:"2vh", border: '1px solid #1232e4'}}>
+          <Grid item md={12}>
+            <Alert
+              severity="info"
+              sx={{
+                marginBottom: "2vh",
+                borderRadius: "2vh",
+                border: "1px solid #1232e4",
+              }}
+            >
               Lütfen bağlanmak istediğiniz firmayı seçiniz.
             </Alert>
           </Grid>
-          <Grid item md={12} sx={{display:"flex",gap:1,}}>
-          {companies.map((company, index) => (
-            <Grid item xs={4} sm={6} md={4} key={index}sx={{boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'}}>
-              <Card>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={company.image}
-                  alt={company.name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {company.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {company.id}
-                  </Typography>
-                </CardContent>
-                <Grid container sx={{ p: 2 }}>
-                  <Grid item xs={12}>
-                    <Button variant="contained" fullWidth color="success">
-                      Bağlan
-                    </Button>
+          <Grid item md={12} sx={{ display: "flex", gap: 1 }}>
+            {companies.map((company, index) => (
+              <Grid
+                item
+                xs={4}
+                sm={6}
+                md={4}
+                key={index}
+                sx={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+              >
+                <Card>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={company.image}
+                    alt={company.name}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {company.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {company.id}
+                    </Typography>
+                  </CardContent>
+                  <Grid container sx={{ p: 2 }}>
+                    <Grid item xs={12}>
+                      <Button variant="contained" fullWidth color="success">
+                        Bağlan
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-          ))}
-
+                </Card>
+              </Grid>
+            ))}
           </Grid>
-          
         </Grid>
       </Grid>
     </Grid>

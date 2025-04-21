@@ -73,8 +73,8 @@ const menuItems = [
   },
 ];
 
-const Sidebar = ({ status,toggleSidebar }) => {
-  const [isHovered, setIsHovered] = useState(true);
+const Sidebar = ({ status, toggleSidebar }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
@@ -160,7 +160,7 @@ const Sidebar = ({ status,toggleSidebar }) => {
                       ? "selected-menu-item"
                       : "unselected-menu-item"
                   }
-                  sx={{ pl: 4, m: 1, width: "95%" }}
+                  sx={{ pl: -3, m: 1, width: "95%" }}
                 >
                   <ListItemIcon>{subItem.icon}</ListItemIcon>{" "}
                   {/* Alt öğe için ikon ekledik */}
@@ -219,7 +219,7 @@ const Sidebar = ({ status,toggleSidebar }) => {
           width: effectiveWidth,
           boxSizing: "border-box",
           backgroundColor: "#ffffff",
-          transition: "width 0.2s",
+          transition: "flex-basis 0.3s ease",
           overflowX: "hidden",
           overflowY: isHovered === true || status === true ? "" : "hidden",
         },
@@ -247,7 +247,7 @@ const Sidebar = ({ status,toggleSidebar }) => {
           alt="Logo"
           style={{
             height: status ? "40px" : "40px",
-            transition: "height 0.2s",
+            transition: "flex-basis 0.3s ease",
           }}
         />
         <Checkbox

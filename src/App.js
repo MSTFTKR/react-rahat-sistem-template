@@ -20,6 +20,7 @@ import "./App.css";
 import { jwtDecode } from "jwt-decode";
 
 import { cookies } from "./utils/cookie";
+import LandingPage from "./pages/landingPage/index.js";
 const NotFound = () => {
   return (
     <div
@@ -48,7 +49,7 @@ function AppRoutes() {
   useEffect(() => {
     const checkAuth = async () => {
       const jwtToken = cookies.get("jwt-access");
-    
+
       if (jwtToken) {
         const decodedToken = jwtDecode(jwtToken);
         const userRole = decodedToken.role;
@@ -60,8 +61,12 @@ function AppRoutes() {
         ) {
           navigate("/NotFound");
         }
-      }else if (!jwtToken) {
-        if (!['/register', '/forgot-password', '/login'].includes(location.pathname)) {
+      } else if (!jwtToken) {
+        if (
+          !["/register", "/forgot-password", "/login"].includes(
+            location.pathname
+          )
+        ) {
           navigate("/login");
         }
       }
@@ -74,20 +79,28 @@ function AppRoutes() {
   if (isLoading) {
     return <div>...</div>; // veya bir yükleme spinner'ı
   }
-
   return (
     <Routes>
+      <Route
+        path="/"
+        element={
+          window.location.hostname ===
+          process.env.REACT_APP_LANDING_PAGE_DOMAIN ? (
+            <LandingPage />
+          ) : (
+            <Navigate to="/homepage" replace />
+          )
+        }
+      />
       <Route path="/" element={<Navigate to="/homepage" replace />} />
 
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/register" element={<Register />} />
 
-
       <Route path="/user/profile" element={<ProfilePage />} />
       <Route path="/homepage" element={<HomePage />} />
       <Route path="/user/gridPage" element={<GridPage />} />
-
 
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/admin/settings" element={<AdminSettings />} />

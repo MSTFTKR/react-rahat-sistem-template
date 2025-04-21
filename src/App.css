@@ -2,29 +2,27 @@
   text-align: center;
 }
 
-
 /* Genel scrollbar ayarları */
 ::-webkit-scrollbar {
-  width: 2vh; 
+  width: 8px;
 }
 
 /* Yatay scrollbar */
 ::-webkit-scrollbar-track {
   background: #f1f1f1; /* Scrollbar arka plan rengi */
-  border-radius: 1vh; /* Scrollbar kenar yuvarlama */
+  border-radius: 8px; /* Scrollbar kenar yuvarlama */
 }
 
 /* Yatay scrollbar için dolgu rengi */
 ::-webkit-scrollbar-thumb {
   background-color: #888; /* Scrollbar dolgu rengi */
-  border-radius: 1vh; /* Scrollbar kenar yuvarlama */
+  border-radius: 8px; /* Scrollbar kenar yuvarlama */
 }
 
 /* Yatay scrollbar üzerine gelindiğinde */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Scrollbar üzerine gelindiğindeki dolgu rengi */
 }
-
 
 .App-logo {
   height: 40vmin;
@@ -188,9 +186,9 @@ body {
 .grid-area {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin-top: 3vh;
-  border-radius: 1vh;
-  padding: 3vh;
+  margin-top: 8px;
+  border-radius: 8px;
+  padding: 15px 18px;
   display: "flex" !important;
 }
 
@@ -221,12 +219,9 @@ body {
   cursor: pointer;
 }
 
-
 .unselected-menu-item:hover::before {
   transform: scaleX(1);
 }
-
-
 
 .unselected-menu-item::before {
   content: "";
@@ -245,25 +240,23 @@ body {
 /*DATEPICKER BUTTON*/
 .date-button {
   background-color: #d6e9f3 !important;
-  color:#1ea2f2 !important;
+  color: #1ea2f2 !important;
   text-transform: none !important;
 }
 .date-button:hover {
   background-color: #e2ecf1 !important;
-  color:#120996 !important;
-  
+  color: #120996 !important;
 }
 /*DATEPICKER BUTTON*/
 
 /*ADMIN BUTTON*/
 .admin-button {
   background-color: #d6e9f3 !important;
-  color:#1ea2f2 !important;
+  color: #1ea2f2 !important;
   text-transform: none !important;
 }
 .admin-button:hover {
   /* background-color: #e2ecf1 !important; */
-  color:#2628be !important;
-  
+  color: #2628be !important;
 }
 /*ADMIN BUTTON*/

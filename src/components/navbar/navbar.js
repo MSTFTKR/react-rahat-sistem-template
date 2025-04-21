@@ -1,11 +1,9 @@
 import { Grid, TextField, Button } from "@mui/material";
 import { Search, MoonStars } from "tabler-icons-react";
-import UserProfileDropdown from './profilMenu'
-import AppsMenu from './appsMenu'
+import UserProfileDropdown from "./profilMenu";
+import AppsMenu from "./appsMenu";
 
 const Navbar = () => {
-  
-
   return (
     <Grid container className="navbar">
       <Grid sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -50,8 +48,11 @@ const Navbar = () => {
         >
           <MoonStars color="black" />
         </Button>
-        <AppsMenu/>
-        <UserProfileDropdown title={'Mustafa Teker'} email={'mstftkr@gmail.com'}/>
+        <AppsMenu />
+        <UserProfileDropdown
+          title={"Mustafa Teker"}
+          email={"mstftkrr@gmail.com"}
+        />
       </Grid>
     </Grid>
   );

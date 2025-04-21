@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Grid,
   Avatar,
@@ -20,22 +20,22 @@ import UserInfo from "./userProfileInfoPage.js";
 import UserSetting from "./userProfileSettingsPage.js";
 
 const ProfilePage = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
   const [userInfo, setUserInfo] = useState({
     name: "Mustafa",
     surname: "Teker",
-    email:"mstftkr99@gmail.com",
-    number:"5310000000",
-    country:"Türkiye",
-    language:"Türkçe",
-    organization:"EtrSoft",
-    address:"Nivo Ataköy",
-    state:"İstanbul",
-    zipCode:"34200",
-    role:"Yazılımcı"
+    email: "mstftkr99@gmail.com",
+    number: "5310000000",
+    country: "Türkiye",
+    language: "Türkçe",
+    organization: "EtrSoft",
+    address: "Nivo Ataköy",
+    state: "İstanbul",
+    zipCode: "34200",
+    role: "Yazılımcı",
   });
   const [userStatus, setUserStatus] = useState(true); //Kullanıcının aktif pasiflik durumunu belirtir.
   const [selectedButtonId, setSelectedButtonId] = useState(1);
@@ -62,17 +62,31 @@ const ProfilePage = () => {
   }, []);
   return (
     <Grid container>
-      <Grid item md={isOpen ? 2.3 : 0.7}>
-        <Sidebar status={isOpen} toggleSidebar={toggleSidebar} />
+      <Grid
+        item
+        sx={{
+          flexBasis: isOpen ? "275px" : "95px",
+          flexShrink: 0,
+          transition: "flex-basis 0.3s ease",
+        }}
+        zIndex={1}
+      >
+        <Sidebar
+          status={isOpen}
+          toggleSidebar={toggleSidebar}
+          location={"homePage"}
+        />
       </Grid>
       <Grid
         item
-        md={isOpen ? 9.7 : 11.3}
+        zIndex={0}
         sx={{
+          flex: 1,
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "column",
-          pr: "4vh",
+          gap: 1,
+          pr: "12px",
         }}
       >
         <Grid //Profil Header Alanı
@@ -224,7 +238,7 @@ const ProfilePage = () => {
           </Grid>
         </Grid>
         {selectedButtonId === 1 ? (
-          <UserInfo userInfo={userInfo}/>
+          <UserInfo userInfo={userInfo} />
         ) : selectedButtonId === 2 ? (
           <UserSetting userInfo={userInfo} />
         ) : (

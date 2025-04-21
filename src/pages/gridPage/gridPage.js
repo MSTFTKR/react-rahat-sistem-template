@@ -10,7 +10,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DateRangePicker from "../../components/DateRangePicker";
 import gridSideBar from "../../components/GridSideBar/gridSideBar.js";
 import { FileInfo } from "tabler-icons-react";
-import { createColumnDefs  } from "./columnDefs.js";
+import { createColumnDefs } from "./columnDefs.js";
 import localStorage from "local-storage";
 import {
   Grid,
@@ -53,7 +53,7 @@ function GridPage() {
     setEndDate((prevDate) => prevDate.clone().add(1, "month").endOf("month"));
   };
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
@@ -67,9 +67,11 @@ function GridPage() {
     const lastPageSize = localStorage.get("pageSize");
     const sideBarOpen = localStorage.get("sidebar");
 
-    if (sideBarOpen==="false") {
-      setIsOpen(false)
-    }else{setIsOpen(true)}
+    if (sideBarOpen === "false") {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
     if (lastPage) {
       setCurrentPage(lastPage);
     }
@@ -81,13 +83,13 @@ function GridPage() {
       setLastScroll(localScroll);
     }
 
-    const cleanupLocalStorage = () => {
-      localStorage.clear();
-    };
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
+    // const cleanupLocalStorage = () => {
+    //   localStorage.clear();
+    // };
+    // window.addEventListener("beforeunload", cleanupLocalStorage);
+    // return () => {
+    //   window.removeEventListener("beforeunload", cleanupLocalStorage);
+    // };
   }, []);
   function clearLocalStorage() {
     localStorage.clear();
@@ -123,49 +125,8 @@ function GridPage() {
         { description: "Detail 1" },
         { description: "Detail 2" },
       ],
-    },{
-      faturaNo: "217",
-      faturaProfili: "EARSIVFATURA",
-      tip: "SATIS",
-      tarih: "24/06/2024",
-      gondericiVkn: "22222222",
-      gondericiUnvan: "DEN...",
-      aliciVkn: "1400000000",
-      aliciUnvan: " SANAYI VE TIC...",
-      subDetails: [
-        //buraya detail objesi yerleştirilecek details: details gibi
-        { description: "Detail 1" },
-        { description: "Detail 2" },
-      ],
-    },{
-      faturaNo: "217",
-      faturaProfili: "EARSIVFATURA",
-      tip: "SATIS",
-      tarih: "24/06/2024",
-      gondericiVkn: "22222222",
-      gondericiUnvan: "DEN...",
-      aliciVkn: "1400000000",
-      aliciUnvan: " SANAYI VE TIC...",
-      subDetails: [
-        //buraya detail objesi yerleştirilecek details: details gibi
-        { description: "Detail 1" },
-        { description: "Detail 2" },
-      ],
-    },{
-      faturaNo: "217",
-      faturaProfili: "EARSIVFATURA",
-      tip: "SATIS",
-      tarih: "24/06/2024",
-      gondericiVkn: "22222222",
-      gondericiUnvan: "DEN...",
-      aliciVkn: "1400000000",
-      aliciUnvan: " SANAYI VE TIC...",
-      subDetails: [
-        //buraya detail objesi yerleştirilecek details: details gibi
-        { description: "Detail 1" },
-        { description: "Detail 2" },
-      ],
-    },{
+    },
+    {
       faturaNo: "217",
       faturaProfili: "EARSIVFATURA",
       tip: "SATIS",
@@ -180,9 +141,53 @@ function GridPage() {
         { description: "Detail 2" },
       ],
     },
-    
+    {
+      faturaNo: "217",
+      faturaProfili: "EARSIVFATURA",
+      tip: "SATIS",
+      tarih: "24/06/2024",
+      gondericiVkn: "22222222",
+      gondericiUnvan: "DEN...",
+      aliciVkn: "1400000000",
+      aliciUnvan: " SANAYI VE TIC...",
+      subDetails: [
+        //buraya detail objesi yerleştirilecek details: details gibi
+        { description: "Detail 1" },
+        { description: "Detail 2" },
+      ],
+    },
+    {
+      faturaNo: "217",
+      faturaProfili: "EARSIVFATURA",
+      tip: "SATIS",
+      tarih: "24/06/2024",
+      gondericiVkn: "22222222",
+      gondericiUnvan: "DEN...",
+      aliciVkn: "1400000000",
+      aliciUnvan: " SANAYI VE TIC...",
+      subDetails: [
+        //buraya detail objesi yerleştirilecek details: details gibi
+        { description: "Detail 1" },
+        { description: "Detail 2" },
+      ],
+    },
+    {
+      faturaNo: "217",
+      faturaProfili: "EARSIVFATURA",
+      tip: "SATIS",
+      tarih: "24/06/2024",
+      gondericiVkn: "22222222",
+      gondericiUnvan: "DEN...",
+      aliciVkn: "1400000000",
+      aliciUnvan: " SANAYI VE TIC...",
+      subDetails: [
+        //buraya detail objesi yerleştirilecek details: details gibi
+        { description: "Detail 1" },
+        { description: "Detail 2" },
+      ],
+    },
   ];
-    const ButtonRenderer = (props) => {
+  const ButtonRenderer = (props) => {
     const handleClick = () => {
       console.log(props.data);
       handleOpen();
@@ -200,7 +205,9 @@ function GridPage() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [rowData, setRowData] = useState();
-  const [columnDefs, setColumnDefs] = useState(createColumnDefs(ButtonRenderer));
+  const [columnDefs, setColumnDefs] = useState(
+    createColumnDefs(ButtonRenderer)
+  );
 
   const detailCellRendererParams = useMemo(() => {
     return {
@@ -232,18 +239,27 @@ function GridPage() {
 
   return (
     <Grid container>
-      <Grid item md={isOpen ? 2.3 : 0.7}>
+      <Grid
+        item
+        sx={{
+          flexBasis: isOpen ? "275px" : "95px",
+          flexShrink: 0,
+          transition: "flex-basis 0.3s ease",
+        }}
+        zIndex={1}
+      >
         <Sidebar status={isOpen} toggleSidebar={toggleSidebar} />
       </Grid>
       <Grid
         item
-        md={isOpen ? 9.7 : 11.3}
+        zIndex={0}
         sx={{
+          flex: 1,
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "column",
           gap: 1,
-          pr: "4vh",
+          pr: "12px",
         }}
       >
         <Grid item xs={12}>
