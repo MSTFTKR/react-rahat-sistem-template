@@ -11,7 +11,6 @@ import Login from "./pages/loginPage/loginPage.js";
 import ForgotPassword from "./pages/forgotPassword/forgotPassword.js";
 import Register from "./pages/registerPage/register.js";
 import HomePage from "./pages/homePage/homePage.js";
-import GridPage from "./pages/gridPage/gridPage.js";
 import ProfilePage from "./pages/profilePage/userProfile.js";
 import AdminPage from "./pages/adminPage/adminPage.js";
 import AdminUsers from "./pages/adminPage/adminUsers.js";
@@ -21,6 +20,10 @@ import { jwtDecode } from "jwt-decode";
 
 import { cookies } from "./utils/cookie";
 import LandingPage from "./pages/landingPage/index.js";
+import MainLayout from "./layouts/MainLayout.js";
+import AdminLayout from "./layouts/AdminLayout.js";
+import GridPage from "./pages/gridPageTemplate/index.js";
+import ComponentsPage from "./pages/ComponentsPage/index.js";
 const NotFound = () => {
   return (
     <div
@@ -81,30 +84,34 @@ function AppRoutes() {
   }
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          window.location.hostname ===
-          process.env.REACT_APP_LANDING_PAGE_DOMAIN ? (
-            <LandingPage />
-          ) : (
-            <Navigate to="/homepage" replace />
-          )
-        }
-      />
-      <Route path="/" element={<Navigate to="/homepage" replace />} />
-
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/register" element={<Register />} />
 
-      <Route path="/user/profile" element={<ProfilePage />} />
-      <Route path="/homepage" element={<HomePage />} />
-      <Route path="/user/gridPage" element={<GridPage />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route
+          index
+          element={
+            window.location.hostname ===
+            process.env.REACT_APP_LANDING_PAGE_DOMAIN ? (
+              <LandingPage />
+            ) : (
+              <Navigate to="/homepage" replace />
+            )
+          }
+        />
+        <Route path="homepage" element={<HomePage />} />
+        <Route path="user/profile" element={<ProfilePage />} />
+        <Route path="user/gridPage" element={<GridPage />} />
+        <Route path="user/components" element={<ComponentsPage />} />
+      </Route>
 
-      <Route path="/admin" element={<AdminPage />} />
-      <Route path="/admin/settings" element={<AdminSettings />} />
-      <Route path="/admin/users" element={<AdminUsers />} />
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminPage />} />
+        <Route path="settings" element={<AdminSettings />} />
+        <Route path="users" element={<AdminUsers />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

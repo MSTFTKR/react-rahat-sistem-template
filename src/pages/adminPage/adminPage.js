@@ -1,9 +1,9 @@
-import React, { useState, useCallback,useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import AdminSidebar from "../../components/adminSideBar/adminSideBar";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import 'ag-grid-enterprise';
+import "ag-grid-enterprise";
 import { Grid, Typography, Button, TextField } from "@mui/material";
 
 import localStorage from "local-storage";
@@ -31,21 +31,13 @@ function AdminPage() {
   }, []);
   return (
     <Grid container>
-      <Grid item md={isOpen ? 2.3 : 0.7}>
-        <AdminSidebar
-          status={isOpen}
-          toggleSidebar={toggleSidebar}
-          location={"homePage"}
-        />
-      </Grid>
       <Grid
         item
-        md={isOpen ? 9.7 : 11.3}
         sx={{
+          width: "100%",
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "column",
-          pr: "4vh",
           gap: 1,
         }}
       >
@@ -55,22 +47,25 @@ function AdminPage() {
           sx={{
             display: "flex",
             justifyContent: "center",
-            flexDirection:"column",
+            flexDirection: "column",
             background: "linear-gradient(135deg, #8a84e2, #84fab0)",
           }}
         >
-          <Grid item md={12} sx={{display:"flex",justifyContent:"center"}}><Typography variant="h4" color={"#E0E0E"}>
-            Kontrol Merkezi
-          </Typography></Grid>
-          
+          <Grid item md={12} sx={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant="h4" color={"#E0E0E"}>
+              Kontrol Merkezi
+            </Typography>
+          </Grid>
+
           {/* Üst kısımdaki istatistik kartları */}
           <Grid
-          item md={12}
+            item
+            md={12}
             style={{
               display: "flex",
-              justifyContent:"space-around",
-              position:"relative",
-              top:"55%"
+              justifyContent: "space-around",
+              position: "relative",
+              top: "55%",
             }}
           >
             <StatCard
@@ -99,14 +94,25 @@ function AdminPage() {
             />
           </Grid>
         </Grid>
-        <Grid md={12} sx={{display:"flex", flexDirection:"column",justifyContent: "center", 
-    alignItems: "center", padding:"2vh",pt:"6%", mb:"2%"}} className="grid-area">
-            <Typography variant="h2">İçerik alanı</Typography>
-            <Typography variant="h2">-</Typography>
-            <Typography variant="h2">--</Typography>
-            <Typography variant="h2">---</Typography>
-            <Typography variant="h2">----</Typography>
-            <Typography variant="h2">-----</Typography>
+        <Grid
+          md={12}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "2vh",
+            pt: "6%",
+            mb: "2%",
+          }}
+          className="grid-area"
+        >
+          <Typography variant="h2">İçerik alanı</Typography>
+          <Typography variant="h2">-</Typography>
+          <Typography variant="h2">--</Typography>
+          <Typography variant="h2">---</Typography>
+          <Typography variant="h2">----</Typography>
+          <Typography variant="h2">-----</Typography>
         </Grid>
       </Grid>
     </Grid>

@@ -5,22 +5,46 @@ import AppsMenu from "./appsMenu";
 
 const Navbar = () => {
   return (
-    <Grid container className="navbar">
-      <Grid sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+    <Grid
+      container
+      className="navbar"
+      xs={11.4}
+      sm={12}
+      sx={{ justifyContent: { sm: "space-between", xs: "center" } }}
+    >
+      <Grid
+        item
+        xs={12}
+        sm={5}
+        sx={{
+          // backgroundColor: "#8400ff",
+
+          display: "flex",
+          paddingLeft: { xs: 0, sm: 2 },
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: 1,
+          order: { xs: 2, sm: 1 },
+        }}
+      >
         <Button
           sx={{
-            borderRadius: "50%", // Yuvarlak kenarlığını sağlar
-            minWidth: 0, // İçeriğin genişliği kadar boyut ayarlar
-            width: "3rem", // İsteğe bağlı olarak genişlik ayarlanabilir
-            height: "3rem", // İsteğe bağlı olarak yükseklik ayarlanabilir
-            padding: 0, // İçerikten boşluk kaldırır
-            boxShadow: "none", // Gölgeyi kaldırır
+            borderRadius: "50%",
+            width: "2.5rem",
+            height: "2.5rem",
+            minWidth: "2.5rem", // Varsayılan minimum genişliği sınırlar
+            minHeight: "2.5rem", // Varsayılan minimum yüksekliği sınırlar
+            padding: 0,
+            boxShadow: "none",
+            // backgroundColor: "#ff0000",
+            overflow: "hidden", // Taşmayı engeller
             "&:hover": {
               backgroundColor: "rgba(126, 126, 126, 0.2)",
             },
           }}
+          disableRipple
         >
-          <Search size={24} color="black" />
+          <Search size={20} color="black" />
         </Button>
 
         <TextField
@@ -32,7 +56,18 @@ const Navbar = () => {
           }}
         />
       </Grid>
-      <Grid sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Grid
+        item
+        xs={12}
+        sm={6}
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: 1,
+          order: { xs: 1, sm: 2 },
+          // backgroundColor: "#ff0000",
+        }}
+      >
         <Button
           sx={{
             borderRadius: "50%",

@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { TextField, Button,styled } from "@mui/material";
+import { TextField, Button, styled } from "@mui/material";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -9,22 +9,6 @@ import "moment/locale/tr";
 import moment from "moment";
 
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-const StyledDatePicker = styled(DatePicker)(({ theme }) => ({
-  '& .MuiInputBase-root': {
-    height: 'auto', // Ekran boyutuna göre dinamik yükseklik
-    fontSize: '1rem', // Yazı boyutunu dinamik yapabiliriz
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '0.75rem', // Küçük ekranlarda yazı boyutunu küçültme
-    },
-  },
-  '& .MuiInputBase-input': {
-    padding: '1rem', // Padding değerini dinamik yapabiliriz
-    [theme.breakpoints.down('sm')]: {
-      padding: '0.5rem', // Küçük ekranlarda padding değerini küçültme
-    },
-  },
-}));
-
 
 const DateRangePicker = ({
   startDate,
@@ -42,12 +26,14 @@ const DateRangePicker = ({
         sx={{
           textTransform: "none",
           width: "50%",
+          height: "35px",
           marginLeft: "auto",
           color: "black",
+          marginTop: "-20px",
+          marginBottom: "5px",
         }}
         onClick={() => {
           onSetToday();
-          console.log(startDate, endDate);
         }}
         startIcon={<CalendarTodayIcon />}
       >
@@ -60,9 +46,9 @@ const DateRangePicker = ({
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="tr">
-      <StyledDatePicker
+      <DatePicker
         renderInput={(props) => (
-          <TextField {...props}  label="Başlangıç Tarihi" />
+          <TextField {...props} label="Başlangıç Tarihi" />
         )}
         minDate={
           isLimitedRangeForMonth
@@ -74,8 +60,7 @@ const DateRangePicker = ({
         value={
           isLimitedRangeForMonth
             ? startDate > endDate ||
-              (startDate <
-                moment(moment(endDate)).subtract(30, "day") &&
+              (startDate < moment(moment(endDate)).subtract(30, "day") &&
                 !isLimitedRangeForMonth &&
                 startDate !== null)
               ? setStartDate(null)
@@ -88,13 +73,21 @@ const DateRangePicker = ({
           actionBar: isToday ? CustomActionBar : null,
         }}
         slotProps={{
-          actionBar: { actions: isToday ? ["today"] : null },
           textField: {
             size: "small",
+            InputProps: {
+              sx: {
+                width: 190,
+                "& input": {
+                  fontSize: "0.95rem",
+                  padding: "10px 8px 4px 12px",
+                },
+              },
+            },
           },
         }}
       />
-      <StyledDatePicker
+      <DatePicker
         renderInput={(props) => (
           <TextField {...props} margin="normal" label="Bitiş Tarihi" />
         )}
@@ -111,8 +104,18 @@ const DateRangePicker = ({
           actionBar: CustomActionBar,
         }}
         slotProps={{
-          actionBar: { actions: ["today"] },
-          textField: { size: "small" },
+          textField: {
+            size: "small",
+            InputProps: {
+              sx: {
+                width: 190,
+                "& input": {
+                  fontSize: "0.95rem",
+                  padding: "10px 8px 4px 12px",
+                },
+              },
+            },
+          },
         }}
       />
     </LocalizationProvider>

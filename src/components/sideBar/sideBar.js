@@ -10,11 +10,17 @@ import {
   Grid,
   Checkbox,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { logout } from "../../api/auth/logout";
 
 import localStorage from "local-storage";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import {
+  ExpandLess,
+  ExpandMore,
+  SettingsInputComponentSharp,
+} from "@mui/icons-material";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import largeLogo from "../../assets/images/by-rahatsistem-logo.png";
 import smallLogo from "../../assets/images/rahatsistem-logo.png";
@@ -35,6 +41,11 @@ import {
 const menuItems = [
   { text: "Anasayfa", icon: <Home size={22} />, path: "/homepage", badge: 7 },
   { text: "GridPage", icon: <Files size={22} />, path: "/user/gridPage" },
+  {
+    text: "Components",
+    icon: <SettingsInputComponentSharp size={22} />,
+    path: "/user/components",
+  },
   { text: "Alt Programlar", header: true },
   {
     text: "Rahat Fatura",
@@ -61,7 +72,7 @@ const menuItems = [
       { text: "Page3", icon: <Mail size={22} />, path: "/products/category" },
     ],
   },
-  { text: "Rahat İletişim", icon: <MessageCircle size={22} />, path: "/" },
+  { text: "LandingPage", icon: <MessageCircle size={22} />, path: "/" },
   { text: "Takvim", icon: <Calendar size={22} /> },
   { text: "Belgeler", icon: <User size={22} /> },
   { text: "Yetkilendirmeler", icon: <Key size={22} /> },
@@ -190,7 +201,6 @@ const Sidebar = ({ status, toggleSidebar }) => {
             {item.badge && (
               <Grid
                 sx={{
-                  backgroundColor: "red",
                   color: "white",
                   borderRadius: "50%",
                   width: 20,
@@ -208,7 +218,8 @@ const Sidebar = ({ status, toggleSidebar }) => {
       </ListItem>
     );
   };
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <Drawer
       variant="permanent"
@@ -236,20 +247,22 @@ const Sidebar = ({ status, toggleSidebar }) => {
     >
       <Grid
         sx={{
-          p: 2,
+          p: 1.5,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <img
-          src={status || isHovered ? largeLogo : smallLogo}
-          alt="Logo"
-          style={{
-            height: status ? "40px" : "40px",
-            transition: "flex-basis 0.3s ease",
-          }}
-        />
+        {!isMobile || (isMobile && (status || isHovered)) ? (
+          <img
+            src={status || isHovered ? largeLogo : smallLogo}
+            alt="Logo"
+            style={{
+              height: isMobile ? "32px" : "40px",
+              transition: "flex-basis 0.3s ease",
+            }}
+          />
+        ) : null}
         <Checkbox
           icon={
             <IconButton size="small" color="#786af2">
@@ -267,13 +280,20 @@ const Sidebar = ({ status, toggleSidebar }) => {
             localStorage.set("sidebar", `${!status}`);
           }}
           sx={{
+            ...(isMobile && {
+              position: "absolute",
+              right: -2,
+              top: 2,
+            }),
             "&.Mui-checked": {
               color: "#7367f0",
             },
           }}
         />
       </Grid>
-      <List sx={{ m: "2%" }}>{menuItems.map(renderMenuItem)}</List>
+      <List sx={{ m: "0px 5px 0px 4px", ...(isMobile && { mt: 2 }) }}>
+        {menuItems.map(renderMenuItem)}
+      </List>
     </Drawer>
   );
 };

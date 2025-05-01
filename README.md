@@ -1,7 +1,8 @@
 # React Template For Rahat Apps
 
-
-By running a single command, you will get a production-ready React app installed and fully configured on your machine. 
+By running a single command, you will get a production-ready React app installed and fully configured on your machine.
+Acting in accordance with the templates is important for code understandability, cleanliness and integrity.
+Please do not go beyond these structures except in extreme cases.
 
 ## Quick Start
 
@@ -10,7 +11,6 @@ To create a project, simply run:
 ```bash
 npx create-rahat-sistem-react-template <project-name>
 ```
-
 
 ## Manual Installation
 
@@ -41,8 +41,6 @@ Running in production:
 ```bash
 npm run start
 ```
-
-
 
 ## Project Structure
 

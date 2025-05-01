@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import gridSideBar from "../../components/GridSideBar/gridSideBar.js";
-import { createColumnDefs  } from "./columnDefs.js";
+import { createColumnDefs } from "./columnDefs.js";
 import localeTextTr from "../../locale.tr";
 import { FileInfo } from "tabler-icons-react";
 import localStorage from "local-storage";
@@ -135,7 +135,9 @@ function AdminUsers() {
     noMatches: "Eşleşme Yok",
     // Add more as needed
   };
-  const [columnDefs, setColumnDefs] = useState(createColumnDefs(ButtonRenderer));
+  const [columnDefs, setColumnDefs] = useState(
+    createColumnDefs(ButtonRenderer)
+  );
 
   const [rowData, setRowData] = useState();
 
@@ -154,21 +156,13 @@ function AdminUsers() {
   }, []);
   return (
     <Grid container>
-      <Grid item md={isOpen ? 2.3 : 0.7}>
-        <AdminSidebar
-          status={isOpen}
-          toggleSidebar={toggleSidebar}
-          location={"homePage"}
-        />
-      </Grid>
       <Grid
         item
-        md={isOpen ? 9.7 : 11.3}
         sx={{
+          width: "100%",
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "column",
-          pr: "4vh",
           gap: 1,
         }}
       >
@@ -255,43 +249,52 @@ function AdminUsers() {
             </Grid>
             <Grid
               item
-              sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1, justifyContent:"space-between", }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                mt: 1,
+                justifyContent: "space-between",
+              }}
             >
-              <Grid sx={{display:"flex", gap:2, alignItems:"center"}}><Pagination
-                count={totalPage}
-                showFirstButton
-                showLastButton
-                page={currentPage}
-                onChange={(event, value) => {
-                  setCurrentPage(value);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  localStorage.set("page", value);
-                }}
-              />
-              <TextField
-                select
-                value={pageSize}
-                size="small"
-                sx={{
-                  display: rowData && rowData?.length === 0 ? "none" : "block",
-                }}
-                onChange={(e) => {
-                  setCurrentPage(1);
-                  setPageSize(e.target.value);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                  localStorage.set("page", 1);
-                  localStorage.set("pageSize", e.target.value);
-                }}
-              >
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={20}>20</MenuItem>
-                <MenuItem value={30}>30</MenuItem>
-                <MenuItem value={40}>40</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={100}>100</MenuItem>
-                <MenuItem value={200}>250</MenuItem>
-              </TextField></Grid>
-              
+              <Grid sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                <Pagination
+                  count={totalPage}
+                  showFirstButton
+                  showLastButton
+                  page={currentPage}
+                  onChange={(event, value) => {
+                    setCurrentPage(value);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    localStorage.set("page", value);
+                  }}
+                />
+                <TextField
+                  select
+                  value={pageSize}
+                  size="small"
+                  sx={{
+                    display:
+                      rowData && rowData?.length === 0 ? "none" : "block",
+                  }}
+                  onChange={(e) => {
+                    setCurrentPage(1);
+                    setPageSize(e.target.value);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    localStorage.set("page", 1);
+                    localStorage.set("pageSize", e.target.value);
+                  }}
+                >
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={20}>20</MenuItem>
+                  <MenuItem value={30}>30</MenuItem>
+                  <MenuItem value={40}>40</MenuItem>
+                  <MenuItem value={50}>50</MenuItem>
+                  <MenuItem value={100}>100</MenuItem>
+                  <MenuItem value={200}>250</MenuItem>
+                </TextField>
+              </Grid>
+
               <Typography>Toplam Kayıt : {totalCount} </Typography>
             </Grid>
           </Grid>

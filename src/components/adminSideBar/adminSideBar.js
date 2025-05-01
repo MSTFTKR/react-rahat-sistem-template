@@ -48,9 +48,8 @@ const menuItems = [
 ];
 
 const AdminSidebar = ({ status, toggleSidebar }) => {
-
   const [isHovered, setIsHovered] = useState(true);
-  
+
   const [openSubMenu, setOpenSubMenu] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
@@ -153,9 +152,9 @@ const AdminSidebar = ({ status, toggleSidebar }) => {
       <ListItem
         button
         key={item.text}
-        component={item.action ? undefined: Link}
-        to={item.action ? undefined:item.path}
-        onClick={item.action ? () => handleItemClick(item):undefined}
+        component={item.action ? undefined : Link}
+        to={item.action ? undefined : item.path}
+        onClick={item.action ? () => handleItemClick(item) : undefined}
         className={itemClass}
         sx={{ mt: 0.3, mb: 0.3 }}
       >
@@ -166,7 +165,6 @@ const AdminSidebar = ({ status, toggleSidebar }) => {
             {item.badge && (
               <Grid
                 sx={{
-                  backgroundColor: "red",
                   color: "white",
                   borderRadius: "50%",
                   width: 20,

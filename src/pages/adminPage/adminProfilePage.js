@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Grid,
   Avatar,
@@ -43,15 +43,15 @@ const AdminSettingsPage = () => {
   const [adminInfo, setAdminInfo] = useState({
     name: "Mustafa",
     surname: "Teker",
-    email:"mstftkr99@gmail.com",
-    number:"5310000000",
-    country:"Türkiye",
-    language:"Türkçe",
-    organization:"EtrSoft",
-    address:"Nivo Ataköy",
-    state:"İstanbul",
-    zipCode:"34200",
-    role:"Yazılımcı"
+    email: "mstftkr99@gmail.com",
+    number: "5310000000",
+    country: "Türkiye",
+    language: "Türkçe",
+    organization: "EtrSoft",
+    address: "Nivo Ataköy",
+    state: "İstanbul",
+    zipCode: "34200",
+    role: "Yazılımcı",
   });
   const [userStatus, setUserStatus] = useState(true); //Kullanıcının aktif pasiflik durumunu belirtir.
   const [selectedButtonId, setSelectedButtonId] = useState(1);
@@ -62,17 +62,13 @@ const AdminSettingsPage = () => {
 
   return (
     <Grid container>
-      <Grid item md={isOpen ? 2.3 : 0.7}>
-        <AdminSidebar status={isOpen} toggleSidebar={toggleSidebar} />
-      </Grid>
       <Grid
         item
-        md={isOpen ? 9.7 : 11.3}
         sx={{
+          width: "100%",
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "column",
-          pr: "4vh",
         }}
       >
         <Grid //Profil Header Alanı
@@ -224,7 +220,7 @@ const AdminSettingsPage = () => {
           </Grid>
         </Grid>
         {selectedButtonId === 1 ? (
-          <AdminInfo adminInfo={adminInfo}/>
+          <AdminInfo adminInfo={adminInfo} />
         ) : selectedButtonId === 2 ? (
           <AdminSettings adminInfo={adminInfo} />
         ) : (

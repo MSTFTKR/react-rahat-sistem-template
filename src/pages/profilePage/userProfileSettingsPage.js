@@ -1,8 +1,7 @@
 import React from "react";
 import { Button, TextField, Grid, Divider } from "@mui/material";
 
-const UserProfileSettingsPage = ({ userInfo}) => {
-
+const UserProfileSettingsPage = ({ userInfo }) => {
   return (
     <Grid
       container
@@ -10,6 +9,7 @@ const UserProfileSettingsPage = ({ userInfo}) => {
       md={12}
       className="grid-area"
       justifyContent={"space-between"}
+      sx={{ gap: 2 }}
     >
       <Grid
         item
@@ -30,7 +30,7 @@ const UserProfileSettingsPage = ({ userInfo}) => {
           <TextField
             fullWidth
             className="input-field"
-                label="Soyad"
+            label="Soyad"
             variant="outlined"
             defaultValue={userInfo.surname}
           />
@@ -54,6 +54,7 @@ const UserProfileSettingsPage = ({ userInfo}) => {
           />
         </Grid>
       </Grid>
+
       <Divider
         orientation="vertical"
         flexItem

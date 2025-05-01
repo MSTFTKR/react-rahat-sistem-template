@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import Sidebar from "../../components/sideBar/sideBar";
-import Navbar from "../../components/navbar/navbar";
-import localStorage from "local-storage";
+
 import {
   Grid,
   Button,
@@ -15,27 +13,11 @@ import {
 import images1 from "../../assets/images/images1.jpg";
 import images2 from "../../assets/images/images2.jpg";
 import images3 from "../../assets/images/images3.png";
+import { CustomButton } from "../gridPageTemplate/Buttons/buttons";
 
 function HomePage() {
   const [isOpen, setIsOpen] = useState(true);
 
-  useEffect(() => {
-    const sideBarOpen = localStorage.get("sidebar");
-
-    if (sideBarOpen === "false") {
-      setIsOpen(false);
-    } else {
-      setIsOpen(true);
-    }
-
-    const cleanupLocalStorage = () => {
-      localStorage.clear();
-    };
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
-  }, []);
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
     console.log(isOpen);
@@ -48,111 +30,77 @@ function HomePage() {
   ];
 
   return (
-    <Grid container>
+    <Grid container sx={{ width: "100%" }}>
       <Grid
         item
-        sx={{
-          flexBasis: isOpen ? "275px" : "95px",
-          flexShrink: 0,
-          transition: "flex-basis 0.3s ease",
-        }}
-        zIndex={1}
+        xs={11.5}
+        sm={12}
+        sx={{ display: "flex", alignItems: "center", gap: 2 }}
       >
-        <Sidebar
-          status={isOpen}
-          toggleSidebar={toggleSidebar}
-          location={"homePage"}
+        <Typography variant="h6">Kontrol Paneli</Typography>
+        <Divider
+          orientation="vertical"
+          flexItem
+          sm={{ height: "5vh", my: 2 }}
         />
+
+        <Typography variant="subtitle1">Firmalar</Typography>
+      </Grid>
+
+      <Grid item xs={11.5} sm={12}>
+        <Alert
+          severity="info"
+          sx={{
+            mb: 1,
+            borderRadius: "12px",
+            border: "1px solid #1232e4",
+          }}
+        >
+          Lütfen bağlanmak istediğiniz firmayı seçiniz.
+        </Alert>
       </Grid>
       <Grid
         item
-        zIndex={0}
-        sx={{
-          flex: 1,
-          display: "flex",
-          justifyContent: "flex-end",
-          flexDirection: "column",
-          gap: 1,
-          pr: "12px",
-        }}
+        xs={11.5}
+        sm={12}
+        sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}
       >
-        <Grid item md={12}>
-          <Navbar />
-        </Grid>
-        <Grid
-          item
-          md={12}
-          sx={{
-            marginRight: "4vh",
-            display: "flex",
-            flexDirection: "column",
-            gap: 1,
-          }}
-        >
+        {companies.map((company, index) => (
           <Grid
             item
-            md={12}
-            sx={{ display: "flex", alignItems: "center", gap: 2 }}
+            xs={3.8}
+            sm={4}
+            key={index}
+            sx={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
           >
-            <Typography variant="h6">Kontrol Paneli</Typography>
-            <Divider
-              orientation="vertical"
-              flexItem
-              md={{ height: "5vh", my: 2 }}
-            />
-
-            <Typography variant="subtitle1">Firmalar</Typography>
-          </Grid>
-
-          <Grid item md={12}>
-            <Alert
-              severity="info"
-              sx={{
-                marginBottom: "2vh",
-                borderRadius: "2vh",
-                border: "1px solid #1232e4",
-              }}
-            >
-              Lütfen bağlanmak istediğiniz firmayı seçiniz.
-            </Alert>
-          </Grid>
-          <Grid item md={12} sx={{ display: "flex", gap: 1 }}>
-            {companies.map((company, index) => (
-              <Grid
-                item
-                xs={4}
-                sm={6}
-                md={4}
-                key={index}
-                sx={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
-              >
-                <Card>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={company.image}
-                    alt={company.name}
+            <Card>
+              <CardMedia
+                component="img"
+                height="140"
+                image={company.image}
+                alt={company.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {company.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {company.id}
+                </Typography>
+              </CardContent>
+              <Grid container sx={{ p: 2 }}>
+                <Grid item xs={12}>
+                  <CustomButton
+                    label="Bağlan"
+                    variant="outlined"
+                    color="secondary"
+                    // onClick={handleOpenModal}
                   />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {company.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {company.id}
-                    </Typography>
-                  </CardContent>
-                  <Grid container sx={{ p: 2 }}>
-                    <Grid item xs={12}>
-                      <Button variant="contained" fullWidth color="success">
-                        Bağlan
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Card>
+                </Grid>
               </Grid>
-            ))}
+            </Card>
           </Grid>
-        </Grid>
+        ))}
       </Grid>
     </Grid>
   );
