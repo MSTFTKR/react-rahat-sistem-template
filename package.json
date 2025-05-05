@@ -1,6 +1,6 @@
 {
   "name": "create-rahat-sistem-react-template",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.11.4",
