@@ -8,7 +8,6 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-
   const handleSubmit = (event) => {
     //APİ İSTEĞİ AT GİRİŞ DOĞRUMU
 
@@ -113,9 +112,7 @@ const ForgotPassword = () => {
           <Button
             variant="body2"
             onClick={() => navigate("/login")}
-            className="unframed-button "
             sx={{
-              color: "#786af2",
               textDecoration: "none",
               display: "flex",
               alignItems: "center",

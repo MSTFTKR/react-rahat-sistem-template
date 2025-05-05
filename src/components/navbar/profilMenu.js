@@ -124,7 +124,14 @@ const UserProfileDropdown = ({
   return (
     <Grid sx={styles.grid}>
       <Button sx={styles.button} onClick={handleToggle}>
-        <Avatar alt={title} src={avatarSrc} />
+        <Avatar
+          alt={
+            title.split(" ").length > 2
+              ? `${title.split(" ")[0]} ${title.split(" ")[1]}`
+              : title
+          }
+          src={avatarSrc}
+        />
       </Button>
       <Popper
         open={open}
@@ -160,7 +167,15 @@ const UserProfileDropdown = ({
                       sx={styles.profileAvatar}
                     />
                     <Grid>
-                      <Typography variant="subtitle1">{title}</Typography>
+                      <Typography variant="subtitle1">
+                        {title.split(" ").length > 2
+                          ? `${title.split(" ").slice(0, 2).join(" ")} ${title
+                              .split(" ")
+                              .slice(2)
+                              .map((word) => word[0] + ".")
+                              .join(" ")}`
+                          : title}
+                      </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {email}
                       </Typography>

@@ -52,14 +52,6 @@ function AdminUsers() {
     if (localScroll) {
       setLastScroll(localScroll);
     }
-
-    const cleanupLocalStorage = () => {
-      localStorage.clear();
-    };
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
   }, []);
 
   const defaultColDef = useMemo(

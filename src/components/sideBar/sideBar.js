@@ -12,9 +12,11 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
+  Box,
 } from "@mui/material";
 import { logout } from "../../api/auth/logout";
-
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import localStorage from "local-storage";
 import {
   ExpandLess,
@@ -24,7 +26,6 @@ import {
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import largeLogo from "../../assets/images/by-rahatsistem-logo.png";
 import smallLogo from "../../assets/images/rahatsistem-logo.png";
-
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import {
   Home,
@@ -54,7 +55,7 @@ const menuItems = [
       {
         text: "paneladmin",
         icon: <ShoppingCart size={22} />,
-        path: "/panel/admin",
+        path: "/user/sssss",
       },
       { text: "Add", icon: <ShoppingCart size={22} /> },
       {
@@ -89,6 +90,24 @@ const Sidebar = ({ status, toggleSidebar }) => {
   const [openSubMenu, setOpenSubMenu] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  // Sub-menu'yü aktif yola göre otomatik aç
+  useEffect(() => {
+    const initialOpenSubMenu = {};
+    menuItems.forEach((item) => {
+      if (item.subItems) {
+        const isSubItemActive = item.subItems.some(
+          (subItem) => subItem.path && location.pathname === subItem.path
+        );
+        if (isSubItemActive) {
+          initialOpenSubMenu[item.text] = true;
+        }
+      }
+    });
+    setOpenSubMenu(initialOpenSubMenu);
+  }, [location.pathname]);
 
   const toggleDrawer = () => {
     toggleSidebar(!status);
@@ -108,6 +127,7 @@ const Sidebar = ({ status, toggleSidebar }) => {
 
   const drawerWidth = status ? 240 : 60;
   const effectiveWidth = status || isHovered ? 240 : 60;
+
   const handleItemClick = (item) => {
     if (item.action) {
       item.action();
@@ -116,74 +136,197 @@ const Sidebar = ({ status, toggleSidebar }) => {
       navigate(item.path);
     }
   };
+
   const renderMenuItem = (item, index) => {
     const isActive = location.pathname === item.path;
-    const itemClass = isActive ? "selected-menu-item" : "unselected-menu-item";
 
     if (item.header) {
       return (
-        (status || isHovered) && (
-          <Typography
-            key={index}
-            variant="overline"
-            sx={{ pl: 2, pt: 2, pb: 1, m: 3 }}
-          >
-            {item.text}
-          </Typography>
-        )
+        <Typography
+          key={index}
+          variant="subtitle2"
+          sx={{
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            height: "0.85rem",
+            maxWidth: "100%",
+            pl: 2,
+            pt: 1,
+            pb: 1,
+            mx: 2,
+            color: "#666",
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            fontSize: "0.85rem",
+            borderBottom: "1px solid #e0e0e0",
+          }}
+        >
+          {status || isHovered ? item.text : ""}
+        </Typography>
       );
     }
 
+    const listItemStyles = {
+      mt: 0.3,
+      mb: 0.3,
+      borderRadius: "8px",
+      position: "relative",
+      overflow: "hidden",
+      height: "2.8rem",
+      width: "99%",
+      backgroundColor: isActive ? "#a51616" : "background.paper",
+      color: isActive ? "white" : "#333",
+      "&:hover": {
+        backgroundColor: isActive ? "#a51616" : "background.paper",
+        color: isActive ? "white" : "#a51616",
+        "&::before": {
+          transform: isActive ? "scaleX(0)" : "scaleX(1)",
+          transformOrigin: "0 50%",
+        },
+      },
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "99%",
+        height: "100%",
+        borderRadius: "8px",
+        backgroundColor: "rgba(165, 22, 22, 0.3)",
+        transform: "scaleX(0)",
+        transformOrigin: "0 50%",
+        transition: "transform 0.475s",
+        zIndex: 0,
+      },
+      "& .MuiListItemText-primary": {
+        color: isActive ? "white" : "#333",
+      },
+      "& .MuiListItemIcon-root": {
+        color: isActive ? "white" : "#333",
+        minWidth: 40,
+      },
+      "& > *": {
+        position: "relative",
+        zIndex: 1,
+      },
+    };
+
     if (item.subItems) {
       const subItemActive = item.subItems.some(
-        (subItem) => location.pathname === subItem.path
+        (subItem) => subItem.path && location.pathname === subItem.path
       );
-      const subItemClass = subItemActive
-        ? "selected-menu-item"
-        : "unselected-menu-item";
 
       return (
         <React.Fragment key={item.text}>
           <ListItem
             button
             onClick={() => handleSubMenuToggle(item.text)}
-            className={subItemClass}
-            sx={{ mt: 0.3, mb: 0.3 }}
+            sx={{
+              ...listItemStyles,
+              backgroundColor: subItemActive ? "#a51616" : "background.paper",
+              color: subItemActive ? "white" : "#333",
+              "& .MuiListItemText-primary": {
+                color: subItemActive ? "white" : "#333",
+              },
+              "& .MuiListItemIcon-root": {
+                color: subItemActive ? "white" : "#333",
+                minWidth: 40,
+              },
+              "&:hover": {
+                backgroundColor: subItemActive ? "#a51616" : "background.paper",
+                color: subItemActive ? "white" : "#a51616",
+                "&::before": {
+                  transform: subItemActive ? "scaleX(0)" : "scaleX(1)",
+                  transformOrigin: "0 50%",
+                },
+              },
+            }}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            {(status || isHovered) && (
-              <>
-                <ListItemText primary={item.text} />
-                {openSubMenu[item.text] ? <ExpandLess /> : <ExpandMore />}
-              </>
-            )}
+            <ListItemIcon
+              sx={{ color: subItemActive ? "white" : "#333", minWidth: 40 }}
+            >
+              {item.icon}
+            </ListItemIcon>
+            <ListItemText
+              primary={item.text}
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            />
+            {openSubMenu[item.text] ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={openSubMenu[item.text]} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {item.subItems.map((subItem, subIndex) => (
-                <ListItem
-                  button
-                  key={subItem.text}
-                  component={Link}
-                  to={subItem.path}
-                  className={
-                    location.pathname === subItem.path
-                      ? "selected-menu-item"
-                      : "unselected-menu-item"
-                  }
-                  sx={{ pl: -3, m: 1, width: "95%" }}
-                >
-                  <ListItemIcon>{subItem.icon}</ListItemIcon>{" "}
-                  {/* Alt öğe için ikon ekledik */}
-                  <ListItemText primary={subItem.text} />
-                </ListItem>
-              ))}
+              {item.subItems.map((subItem, subIndex) => {
+                const isSubItemActive =
+                  subItem.path && location.pathname === subItem.path;
+                return (
+                  <ListItem
+                    button
+                    key={subItem.text}
+                    component={subItem.path ? Link : "div"}
+                    to={subItem.path}
+                    sx={{
+                      ...listItemStyles,
+                      width: "95%",
+                      backgroundColor: isSubItemActive
+                        ? "#a51616"
+                        : "background.paper",
+                      color: isSubItemActive ? "white" : "#333",
+                      pl: 2,
+                      m: 1,
+                      "&:hover": {
+                        backgroundColor: isSubItemActive
+                          ? "#a51616"
+                          : "background.paper",
+                        color: isSubItemActive ? "white" : "#a51616",
+                        "&::before": {
+                          transform: isSubItemActive
+                            ? "scaleX(0)"
+                            : "scaleX(1)",
+                          transformOrigin: "0 50%",
+                        },
+                      },
+                      "& .MuiListItemText-primary": {
+                        color: isSubItemActive ? "white" : "#333",
+                      },
+                      "& .MuiListItemIcon-root": {
+                        color: isSubItemActive ? "white" : "#333",
+                        minWidth: 40,
+                      },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        color: isSubItemActive ? "white" : "#333",
+                        minWidth: 40,
+                      }}
+                    >
+                      {subItem.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={subItem.text}
+                      sx={{
+                        width: "auto",
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                        maxWidth: "99%",
+                      }}
+                    />
+                  </ListItem>
+                );
+              })}
             </List>
           </Collapse>
         </React.Fragment>
       );
     }
 
+    // Ana menü öğeleri için mevcut kod (değişmedi)
     return (
       <ListItem
         button
@@ -191,35 +334,52 @@ const Sidebar = ({ status, toggleSidebar }) => {
         onClick={item.action ? () => handleItemClick(item) : undefined}
         component={item.action ? undefined : Link}
         to={item.action ? undefined : item.path}
-        className={itemClass}
-        sx={{ mt: 0.3, mb: 0.3 }}
+        sx={{
+          ...listItemStyles,
+          "&:hover": {
+            backgroundColor: isActive ? "#a51616" : "background.paper",
+            color: isActive ? "white" : "#a51616",
+            "&::before": {
+              transform: isActive ? "scaleX(0)" : "scaleX(1)",
+              transformOrigin: "0 50%",
+            },
+          },
+        }}
       >
-        <ListItemIcon>{item.icon}</ListItemIcon>
-        {(status || isHovered) && (
-          <>
-            <ListItemText primary={item.text} />
-            {item.badge && (
-              <Grid
-                sx={{
-                  color: "white",
-                  borderRadius: "50%",
-                  width: 20,
-                  height: 20,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {item.badge}
-              </Grid>
-            )}
-          </>
+        <ListItemIcon sx={{ color: isActive ? "white" : "#333", minWidth: 40 }}>
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText
+          primary={item.text}
+          sx={{
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            maxWidth: "99%",
+          }}
+        />
+        {item.badge && (
+          <Grid
+            sx={{
+              color: isActive ? "white" : "#a51616",
+              border: "1px solid",
+              borderColor: isActive ? "white" : "#a51616",
+              borderRadius: "50%",
+              width: 20,
+              height: 20,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: 12,
+            }}
+          >
+            {item.badge}
+          </Grid>
         )}
       </ListItem>
     );
   };
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Drawer
       variant="permanent"
@@ -230,16 +390,17 @@ const Sidebar = ({ status, toggleSidebar }) => {
           width: effectiveWidth,
           boxSizing: "border-box",
           backgroundColor: "#ffffff",
-          transition: "flex-basis 0.3s ease",
+          transition: "width 0.4s ease",
           overflowX: "hidden",
           overflowY: isHovered === true || status === true ? "" : "hidden",
+          boxShadow: "2px 0 8px rgba(0, 0, 0, 0.1)",
         },
         "& .MuiDrawer-paper::-webkit-scrollbar": {
-          width: "0.7vh", // Scrollbar genişliği
+          width: "2px", // Scrollbar genişliği
         },
         "& .MuiDrawer-paper::-webkit-scrollbar-thumb": {
-          backgroundColor: "#888", // Scrollbar çizgisi rengi
-          borderRadius: 10, // Scrollbar çizgisi köşe yuvarlama
+          backgroundColor: "#888",
+          borderRadius: 10,
         },
       }}
       onMouseEnter={handleMouseEnter}
@@ -253,26 +414,46 @@ const Sidebar = ({ status, toggleSidebar }) => {
           justifyContent: "space-between",
         }}
       >
-        {!isMobile || (isMobile && (status || isHovered)) ? (
-          <img
-            src={status || isHovered ? largeLogo : smallLogo}
-            alt="Logo"
-            style={{
-              height: isMobile ? "32px" : "40px",
-              transition: "flex-basis 0.3s ease",
+        <Box
+          sx={{
+            position: "relative",
+            width: "100px", // Genişliği logolardan biri kadar sabit tut
+            height: "40px",
+          }}
+        >
+          {/* Large Logo */}
+          <Box
+            component="img"
+            src={largeLogo}
+            alt="Large Logo"
+            sx={{
+              position: "absolute",
+              height: "40px",
+              transition: "opacity 0.4s ease",
+              opacity: status || isHovered ? 1 : 0,
             }}
           />
-        ) : null}
+          {/* Small Logo */}
+          {!isMobile && (
+            <Box
+              component="img"
+              src={smallLogo}
+              alt="Small Logo"
+              sx={{
+                height: "40px",
+                transition: "opacity 0.4s ease",
+                opacity:
+                  !isMobile || (isMobile && (status || isHovered)) ? 1 : 0,
+              }}
+            />
+          )}
+        </Box>
         <Checkbox
           icon={
-            <IconButton size="small" color="#786af2">
-              <span style={{ fontSize: "1.5rem" }}>◯</span>
-            </IconButton>
+            <RadioButtonUncheckedIcon sx={{ color: "#cb1317", fontSize: 24 }} />
           }
           checkedIcon={
-            <IconButton size="small">
-              <span style={{ fontSize: "1.5rem" }}>◉</span>
-            </IconButton>
+            <RadioButtonCheckedIcon sx={{ color: "#cb1317", fontSize: 24 }} />
           }
           checked={status}
           onChange={toggleDrawer}
@@ -280,18 +461,27 @@ const Sidebar = ({ status, toggleSidebar }) => {
             localStorage.set("sidebar", `${!status}`);
           }}
           sx={{
-            ...(isMobile && {
-              position: "absolute",
-              right: -2,
-              top: 2,
-            }),
-            "&.Mui-checked": {
-              color: "#7367f0",
-            },
+            mx: { xs: 1, sm: 1, md: status || isHovered ? 0 : 2 },
+
+            p: 0,
           }}
         />
       </Grid>
-      <List sx={{ m: "0px 5px 0px 4px", ...(isMobile && { mt: 2 }) }}>
+      <List
+        sx={{
+          flex: 1,
+          m: "0px 5px 0px 4px",
+          ...(isMobile && { mt: 0 }),
+          overflowY: isHovered || status ? "auto" : "hidden",
+          "&::-webkit-scrollbar": {
+            width: "4px", // Scrollbar genişliği
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#888",
+            borderRadius: 10,
+          },
+        }}
+      >
         {menuItems.map(renderMenuItem)}
       </List>
     </Drawer>

@@ -36,7 +36,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { CustomButton } from "./Buttons/buttons";
 
 /**
  * Comprehensive form modal template with various form elements
@@ -225,12 +224,12 @@ const FormModal = ({
     >
       <DialogTitle
         sx={{
-          backgroundColor: theme.palette.primary.light,
+          backgroundColor: "#a51616",
           color: theme.palette.primary.contrastText,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          // py: 1.2, // üst-alt padding azaltıldı
+          py: 1.6, // üst-alt padding azaltıldı
 
           borderRadius: "7px 7px 0 0",
 
@@ -248,15 +247,30 @@ const FormModal = ({
           aria-label="kapat"
           size="small"
           sx={{
+            backgroundColor: "#ffffff",
+            borderRadius: "50%",
             position: "absolute",
-            top: -8,
+            top: -10,
             right: -8,
+            width: 30,
+            height: 30,
+            padding: 0,
             ":hover": {
               backgroundColor: "rgba(185, 185, 185, 1)",
+              "& svg": {
+                color: "#ff0000", // Hover rengi
+              },
             },
           }}
         >
-          <CloseIcon sx={{ color: "#1982eb" }} />
+          <CloseIcon
+            sx={{
+              borderRadius: "50%",
+              fontSize: 18,
+              color: "#db2b2b",
+              padding: "6px",
+            }}
+          />
         </IconButton>
       </DialogTitle>
 
@@ -265,7 +279,7 @@ const FormModal = ({
           <Typography
             variant="subtitle1"
             fontWeight="medium"
-            color="primary"
+            color="#0079FF"
             gutterBottom
           >
             Temel Bilgiler
@@ -339,7 +353,7 @@ const FormModal = ({
           <Typography
             variant="subtitle1"
             fontWeight="medium"
-            color="primary"
+            color="#0079FF"
             gutterBottom
           >
             İş Bilgileri
@@ -418,7 +432,7 @@ const FormModal = ({
           <Typography
             variant="subtitle1"
             fontWeight="medium"
-            color="primary"
+            color="#0079FF"
             gutterBottom
           >
             Tercihler
@@ -492,14 +506,14 @@ const FormModal = ({
           borderTop: `1px solid ${theme.palette.divider}`,
         }}
       >
-        <CustomButton
+        <Button
           label="İptal"
           startIcon={<CancelIcon />}
           onClick={onClose}
           color="inherit"
           variant="outlined"
         />
-        <CustomButton
+        <Button
           label={loading ? "Kaydediliyor..." : "Kaydet"}
           startIcon={<SaveIcon />}
           onClick={handleSubmit}

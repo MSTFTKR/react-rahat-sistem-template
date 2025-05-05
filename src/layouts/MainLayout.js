@@ -16,14 +16,6 @@ const MainLayout = () => {
     } else {
       setIsOpen(true);
     }
-
-    const cleanupLocalStorage = () => {
-      localStorage.clear();
-    };
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
   }, []);
 
   const toggleSidebar = () => {
@@ -39,7 +31,7 @@ const MainLayout = () => {
           top: 0,
           left: 0,
           height: "100vh",
-          zIndex: 1,
+          zIndex: 3,
           transition: "width 0.3s ease",
         }}
       >

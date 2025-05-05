@@ -100,7 +100,7 @@ const Login = () => {
           sm: "space-between",
         },
       }}
-      md={12}
+      xs={12}
     >
       <Grid
         item
@@ -109,8 +109,9 @@ const Login = () => {
         sx={{
           display: {
             xs: "none",
-            sm: "flex",
+            md: "flex",
           },
+          alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#041737",
         }}
@@ -179,7 +180,8 @@ const Login = () => {
 
         <Grid
           item
-          md={6}
+          md={10}
+          lg={8}
           sx={{
             width: "95%",
             backgroundColor: "white",
@@ -216,11 +218,6 @@ const Login = () => {
                 </InputAdornment>
               ),
             }}
-            sx={{
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.05)",
-            }}
           />
           <TextField
             fullWidth
@@ -241,17 +238,12 @@ const Login = () => {
                 </InputAdornment>
               ),
               endAdornment: (
-                <InputAdornment position="end">
+                <InputAdornment position="end" sx={{ pr: 1 }}>
                   <IconButton onClick={handleClickShowPassword} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               ),
-            }}
-            sx={{
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.05)",
             }}
           />
         </Grid>
@@ -259,6 +251,7 @@ const Login = () => {
           item
           md={9.1}
           sx={{
+            mb: 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -299,13 +292,13 @@ const Login = () => {
             <Button
               variant="body2"
               onClick={() => navigate("/forgot-password")}
-              className="unframed-button"
+              sx={{ boxShadow: "none" }}
             >
               Şifreni mi unuttun?
             </Button>
           </Grid>
         </Grid>
-        <Grid item md={5} sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid item xs={5} sx={{ display: "flex", justifyContent: "center" }}>
           <Button
             variant="contained"
             color="secondary"
@@ -349,6 +342,8 @@ const Login = () => {
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
+            gap: 1,
+            mt: 1,
           }}
         >
           <Typography variant="body2">Henüz kaydınız yok mu? </Typography>
@@ -358,7 +353,7 @@ const Login = () => {
             onClick={() => {
               navigate("/register");
             }}
-            className="unframed-button"
+            sx={{ boxShadow: "none" }}
           >
             Kayıt ol
           </Button>

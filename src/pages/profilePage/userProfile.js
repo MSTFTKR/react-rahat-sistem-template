@@ -49,14 +49,6 @@ const ProfilePage = () => {
   useEffect(() => {
     const sideBarOpen = localStorage.get("sidebar");
     setIsOpen(sideBarOpen !== "false");
-
-    const cleanupLocalStorage = () => {
-      localStorage.clear();
-    };
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
   }, []);
 
   return (

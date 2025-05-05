@@ -7,7 +7,7 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DateRangePicker from "../../components/DateRangePicker/index.js";
 import gridSideBar from "../../components/GridSideBar/gridSideBar.js";
-import { MenuButton, CustomButton } from "./Buttons/buttons.js";
+import { MenuButton } from "../../components/Buttons/buttons.js";
 import { FileInfo } from "tabler-icons-react";
 import { createColumnDefs } from "./columnDefs.js";
 import localStorage from "local-storage";
@@ -89,7 +89,7 @@ function ComponentsPage() {
     }
   };
 
-  // CustomButton için tıklama işleyicisi
+  // Button için tıklama işleyicisi
   const handleSaveButtonClick = () => {
     console.log("Kaydet butonuna tıklandı");
     // Kaydetme işlemi
@@ -115,18 +115,8 @@ function ComponentsPage() {
     if (localScroll) {
       setLastScroll(localScroll);
     }
-
-    // const cleanupLocalStorage = () => {
-    //   localStorage.clear();
-    // };
-    // window.addEventListener("beforeunload", cleanupLocalStorage);
-    // return () => {
-    //   window.removeEventListener("beforeunload", cleanupLocalStorage);
-    // };
   }, []);
-  function clearLocalStorage() {
-    localStorage.clear();
-  }
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -254,16 +244,15 @@ function ComponentsPage() {
   };
   const ButtonRenderer = (props) => {
     const handleClick = () => {
-      console.log(props.data);
       handleOpen();
       localStorage.set("scrollPosition", Math.floor(window.scrollY));
       // Buraya tıklama durumunda yapılacak işlemi ekleyin
     };
 
     return (
-      <Button onClick={handleClick}>
+      <IconButton onClick={handleClick}>
         <FileInfo></FileInfo>
-      </Button>
+      </IconButton>
     );
   };
   const [open, setOpen] = useState(false);
@@ -348,23 +337,28 @@ function ComponentsPage() {
             item
             sx={{
               display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
               alignItems: "center",
+              gap: 3,
             }}
           >
-            <TextField
-              sx={{
-                backgroundColor: "#ffffff",
-                width: "200px",
-                height: "40px", // Standart yükseklik (theme.js ile uyumlu)
-              }}
-              variant="standard"
-              InputProps={{
-                placeholder: "Ara...",
-              }}
-            />
-            <IconButton>
-              <SearchOutlinedIcon fontSize="small" />
-            </IconButton>
+            <Grid item sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <TextField
+                sx={{
+                  backgroundColor: "#ffffff",
+                  width: "200px",
+                  height: "40px", // Standart yükseklik (theme.js ile uyumlu)
+                }}
+                variant="standard"
+                InputProps={{
+                  placeholder: "Ara...",
+                }}
+              />
+              <IconButton>
+                <SearchOutlinedIcon fontSize="small" />
+              </IconButton>
+            </Grid>
+
             <Autocomplete
               options={options}
               sx={{
@@ -373,7 +367,7 @@ function ComponentsPage() {
                 height: "40px", // Standart yükseklik
               }}
               renderInput={(params) => (
-                <TextField {...params} label="Meyveee Seç" variant="outlined" />
+                <TextField {...params} label="Meyve Seç" variant="outlined" />
               )}
             />
           </Grid>
@@ -446,21 +440,25 @@ function ComponentsPage() {
             onItemClick={handleMenuItemClick}
             color="primary"
           />
-          {/* CustomButton örnekleri */}
-          <CustomButton
-            label="Kaydet"
+          {/* Button örnekleri */}
+          <Button
+            variant="outlined"
             color="success"
             onClick={handleSaveButtonClick}
             startIcon={<Save />}
-          />
-          <CustomButton label="Yükleniyor..." loading={true} color="primary" />
-          <CustomButton label="Devre Dışı" disabled={true} color="error" />
-          <CustomButton
-            label="Düz Buton (Modal Örneği Açar)"
-            variant="outlined"
+          >
+            Kaydet
+          </Button>
+          <Button disabled={true} color="error" variant="outlined">
+            Devre Dışı
+          </Button>
+          <Button
+            variant="contained"
             color="secondary"
             onClick={handleOpenModal}
-          />
+          >
+            Düz Buton (Modal Örneği Açar)
+          </Button>
           <FormModal
             open={openModal}
             onClose={handleCloseModal}

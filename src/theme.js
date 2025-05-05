@@ -1,22 +1,71 @@
 // theme.js
 import { createTheme } from "@mui/material/styles";
+const palette = {
+  primary: {
+    main: "#a51616",
+    contrastText: "#ffffff",
+    light: "#c14343", // Light version of primary
+    dark: "#7f1111", // Dark version of primary
+  },
+  secondary: {
+    main: "#e58e26",
+    contrastText: "#ffffff",
+    light: "#eaa554", // Light version of secondary
+    dark: "#b67012", // Dark version of secondary
+  },
+  accent: {
+    main: "#305f72",
+    contrastText: "#ffffff",
+    light: "#4c7a8d", // Light version of accent
+    dark: "#264859", // Dark version of accent
+  },
+  success: {
+    main: "#2e7d32",
+    light: "#4caf50",
+    dark: "#1b5e20",
+    contrastText: "#ffffff",
+  },
+  error: {
+    main: "#c62828",
+    light: "#ef5350",
+    dark: "#b71c1c",
+    contrastText: "#ffffff",
+  },
+  warning: {
+    main: "#f9a825",
+    light: "#fbc02d",
+    dark: "#f57f17",
+    contrastText: "#ffffff",
+  },
+  info: {
+    main: "#1976d2",
+    light: "#42a5f5",
+    dark: "#1565c0",
+    contrastText: "#ffffff",
+  },
+  background: {
+    default: "#fdf7f6",
+    paper: "#ffffff",
+    hover: "#f5f7fd",
+    active: "#e8ecfb",
+    disabled: "#f0f0f0",
+  },
+  text: {
+    primary: "#1e1e1e",
+    secondary: "#4e4e4e",
+    disabled: "#b0b0b0",
+    hint: "#6c6c6c",
+  },
+  action: {
+    hover: "rgba(0, 0, 0, 0.04)",
+    selected: "#1976d2",
+  },
+};
 
 const theme = createTheme({
   palette: {
-    mode: "light", // dark tema istersen 'dark' yapabilirsin
-    primary: {
-      main: "#0079FF", // mavi
-    },
-    secondary: {
-      main: "#9c27b0", // mor
-    },
-    error: {
-      main: "#d32f2f",
-    },
-    background: {
-      default: "#f5f5f5",
-      paper: "#ffffff",
-    },
+    mode: "light",
+    ...palette,
   },
   typography: {
     fontFamily: ['"Roboto"', "sans-serif"].join(","),
@@ -56,7 +105,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         icon: {
-          color: "#0079FF",
+          color: (theme) => theme.palette.primary.main,
         },
         root: {
           maxWidth: "100%",
@@ -105,34 +154,29 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: "8px",
-          backgroundColor: "#ffffff",
-          color: "#0079FF",
-          minWidth: "auto",
+          borderRadius: "30%",
+          backgroundColor: "transparent",
+          color: (theme) => theme.palette.primary.main,
           padding: "4px",
-          margin: "1px",
-          width: "auto",
-          height: "auto",
-          boxShadow: "0 2px 4px rgba(92, 94, 216, 0.1)",
           transition: "all 0.2s ease",
           textTransform: "none",
           "&:hover": {
-            backgroundColor: "rgba(182, 198, 241, 0.2)",
+            backgroundColor: (theme) =>
+              `rgba(${hexToRgb(theme.palette.primary.main)}, 0.1)`,
             transform: "translateY(-1px)",
-            boxShadow: "0 4px 8px rgba(92, 94, 216, 0.2)",
+            boxShadow: (theme) =>
+              `0 4px 8px rgba(${hexToRgb(theme.palette.primary.main)}, 0.2)`,
           },
           "&:active": {
-            backgroundColor: "rgba(182, 198, 241, 0.4)",
+            backgroundColor: (theme) =>
+              `rgba(${hexToRgb(theme.palette.primary.main)}, 0.2)`,
             transform: "translateY(0)",
-            boxShadow: "0 1px 2px rgba(92, 94, 216, 0.1)",
-          },
-          "&:focus": {
-            outline: "none",
-            boxShadow: "0 0 0 2px rgba(92, 94, 216, 0.3)",
+            boxShadow: (theme) =>
+              `0 1px 2px rgba(${hexToRgb(theme.palette.primary.main)}, 0.1)`,
           },
           "&.Mui-disabled": {
-            backgroundColor: "#f0f0f0",
-            color: "#b0b0b0",
+            backgroundColor: "transparent",
+            color: (theme) => theme.palette.text.disabled,
             cursor: "not-allowed",
             opacity: 0.7,
             boxShadow: "none",
@@ -158,12 +202,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "8px",
-          backgroundColor: "#ffffff",
-          color: "#0079FF",
+          backgroundColor: (theme) => theme.palette.background.paper,
+          color: (theme) => theme.palette.primary.main,
           minWidth: "auto",
-          padding: "8px 16px",
+          padding: "6px 8px",
           width: "auto",
-          boxShadow: "0 2px 5px rgba(92, 94, 216, 0.15)",
           transition: "all 0.2s ease",
           position: "relative",
           overflow: "hidden",
@@ -181,25 +224,23 @@ const theme = createTheme({
             transition: "transform 0.3s ease-out",
           },
           "&:hover": {
-            backgroundColor: "#f5f7fd",
-            boxShadow: "0 4px 10px rgba(92, 94, 216, 0.25)",
+            backgroundColor: (theme) => theme.palette.background.hover,
+            boxShadow: (theme) =>
+              `0 4px 10px rgba(${hexToRgb(theme.palette.primary.main)}, 0.25)`,
             transform: "translateY(-2px)",
             "&:before": {
               transform: "translateX(0)",
             },
           },
           "&:active": {
-            backgroundColor: "#e8ecfb",
-            boxShadow: "0 1px 3px rgba(92, 94, 216, 0.15)",
+            backgroundColor: (theme) => theme.palette.background.active,
+            boxShadow: (theme) =>
+              `0 1px 3px rgba(${hexToRgb(theme.palette.primary.main)}, 0.15)`,
             transform: "translateY(0)",
           },
-          "&:focus": {
-            outline: "none",
-            boxShadow: "0 0 0 3px rgba(92, 94, 216, 0.2)",
-          },
           "&.Mui-disabled": {
-            backgroundColor: "#f0f0f0",
-            color: "#b0b0b0",
+            backgroundColor: (theme) => theme.palette.background.disabled,
+            color: (theme) => theme.palette.text.disabled,
             cursor: "not-allowed",
             opacity: 0.7,
             boxShadow: "none",
@@ -207,44 +248,51 @@ const theme = createTheme({
         },
         // Varyantlar
         containedPrimary: {
-          backgroundColor: "#7367f0",
-          color: "#ffffff",
+          backgroundColor: (theme) => theme.palette.primary.main,
+          color: (theme) => theme.palette.primary.contrastText,
           "&:hover": {
-            backgroundColor: "#675cd8",
+            backgroundColor: (theme) => theme.palette.primary.dark,
           },
           "&:active": {
-            backgroundColor: "#5b52c2",
+            backgroundColor: (theme) =>
+              darken(theme.palette.primary.dark, 0.15),
           },
         },
         containedSecondary: {
-          backgroundColor: "#ff9f43",
-          color: "#ffffff",
+          backgroundColor: (theme) => theme.palette.secondary.main,
+          color: (theme) => theme.palette.secondary.contrastText,
           "&:hover": {
-            backgroundColor: "#f88f2f",
+            backgroundColor: (theme) => theme.palette.secondary.dark,
           },
           "&:active": {
-            backgroundColor: "#e57f1e",
+            backgroundColor: (theme) =>
+              darken(theme.palette.secondary.dark, 0.15),
           },
         },
         outlined: {
-          borderColor: "#7367f0",
-          color: "#7367f0",
+          borderColor: (theme) => theme.palette.primary.main,
+          color: (theme) => theme.palette.primary.main,
           backgroundColor: "transparent",
           boxShadow: "none",
           "&:hover": {
-            backgroundColor: "rgba(115, 103, 240, 0.04)",
-            borderColor: "#675cd8",
-            color: "#675cd8",
+            backgroundColor: (theme) =>
+              `rgba(${hexToRgb(theme.palette.primary.main)}, 0.04)`,
+            borderColor: (theme) => theme.palette.primary.main,
+            color: (theme) => theme.palette.primary.main,
           },
         },
         // Boyut varyasyonları
         sizeSmall: {
-          padding: "6px 12px",
-          fontSize: "0.875rem",
+          padding: "4px 10px",
+          fontSize: "0.775rem",
         },
         sizeLarge: {
-          padding: "12px 24px",
+          padding: "10px 20px",
           fontSize: "1rem",
+        },
+        sizeMedium: {
+          padding: "6px 14px",
+          fontSize: "0.875rem",
         },
         // Tam genişlik
         fullWidth: {
@@ -256,56 +304,14 @@ const theme = createTheme({
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: "#0079FF", // Varsayılan renk
+          color: (theme) => theme.palette.primary.main, // Varsayılan renk
         },
         checked: {
-          color: "#0079FF", // Onaylı checkbox rengi
+          color: (theme) => theme.palette.primary.main, // Onaylı checkbox rengi
         },
       },
     },
-    MuiListItem: {
-      styleOverrides: {
-        root: {
-          "&.selected-menu-item": {
-            backgroundColor: "#0079FF !important",
-            borderRadius: "8px !important",
-            color: "white !important",
-          },
-          "&.selected-menu-item .MuiListItemText-primary": {
-            color: "white !important",
-          },
-          "&.selected-menu-item .MuiListItemIcon-root": {
-            color: "white !important",
-          },
-          "&.unselected-menu-item": {
-            position: "relative",
-            overflow: "hidden",
-            height: "3rem",
-            borderRadius: "8px",
-            background: "#ffffff",
-            backgroundSize: "300%",
-            border: "none",
-            cursor: "pointer",
-          },
-          "&.unselected-menu-item:hover::before": {
-            transform: "scaleX(1)",
-          },
-          "&.unselected-menu-item::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            transform: "scaleX(0)",
-            transformOrigin: "0 50%",
-            width: "100%",
-            height: "inherit",
-            borderRadius: "8px",
-            backgroundColor: "rgba(48, 92, 238, 0.3) !important",
-            transition: "all 0.475s",
-          },
-        },
-      },
-    },
+
     MuiButtonBase: {
       styleOverrides: {
         root: {
@@ -337,11 +343,11 @@ const theme = createTheme({
         root: {
           backgroundColor: "transparent",
           "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.04)",
+            backgroundColor: (theme) => theme.palette.action.hover,
           },
           "&.Mui-selected": {
-            backgroundColor: "#1976d2",
-            color: "#fff",
+            backgroundColor: (theme) => theme.palette.action.selected,
+            color: (theme) => theme.palette.primary.contrastText,
           },
         },
       },
@@ -349,7 +355,7 @@ const theme = createTheme({
     MuiDatePickerToolbar: {
       styleOverrides: {
         root: {
-          color: "#1ea2f2",
+          color: (theme) => theme.palette.primary.main,
         },
       },
     },
@@ -366,27 +372,34 @@ const theme = createTheme({
     MuiCustomButton: {
       styleOverrides: {
         root: {
-          backgroundColor: "#7367f0 !important",
+          backgroundColor: (theme) =>
+            `${theme.palette.primary.main} !important`,
           width: "100%",
           textTransform: "none !important",
           borderRadius: "8px",
           padding: "10px 16px",
-          boxShadow: "0 4px 8px rgba(115, 103, 240, 0.25)",
+          boxShadow: (theme) =>
+            `0 4px 8px rgba(${hexToRgb(theme.palette.primary.main)}, 0.25)`,
           transition: "all 0.3s ease",
           fontWeight: 500,
           "&:hover": {
-            backgroundColor: "#675cd8 !important",
-            boxShadow: "0 6px 12px rgba(115, 103, 240, 0.4)",
+            backgroundColor: (theme) =>
+              `${theme.palette.primary.dark} !important`,
+            boxShadow: (theme) =>
+              `0 6px 12px rgba(${hexToRgb(theme.palette.primary.main)}, 0.4)`,
             transform: "translateY(-2px)",
           },
           "&:active": {
-            backgroundColor: "#5b52c2 !important",
-            boxShadow: "0 2px 4px rgba(115, 103, 240, 0.2)",
+            backgroundColor: (theme) =>
+              `${darken(theme.palette.primary.dark, 0.15)} !important`,
+            boxShadow: (theme) =>
+              `0 2px 4px rgba(${hexToRgb(theme.palette.primary.main)}, 0.2)`,
             transform: "translateY(1px)",
           },
           "&:focus": {
             outline: "none",
-            boxShadow: "0 0 0 3px rgba(115, 103, 240, 0.3)",
+            boxShadow: (theme) =>
+              `0 0 0 3px rgba(${hexToRgb(theme.palette.primary.main)}, 0.3)`,
           },
         },
       },
@@ -395,29 +408,67 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: "none !important",
-          color: "#4b4b4b !important",
+          color: (theme) => `${theme.palette.text.secondary} !important`,
           borderRadius: "8px",
           padding: "8px 16px",
-          backgroundColor: "#f8f8fc",
+          backgroundColor: (theme) => theme.palette.background.default,
           transition: "all 0.2s ease",
           fontWeight: 500,
           border: "1px solid transparent",
           "&:hover": {
-            backgroundColor: "rgba(115, 103, 240, 0.1) !important",
-            color: "#7367f0 !important",
-            border: "1px solid rgba(115, 103, 240, 0.3)",
+            backgroundColor: (theme) =>
+              `rgba(${hexToRgb(theme.palette.primary.main)}, 0.1) !important`,
+            color: (theme) => `${theme.palette.primary.main} !important`,
+            border: (theme) =>
+              `1px solid rgba(${hexToRgb(theme.palette.primary.main)}, 0.3)`,
           },
           "&:active": {
-            backgroundColor: "rgba(115, 103, 240, 0.2) !important",
+            backgroundColor: (theme) =>
+              `rgba(${hexToRgb(theme.palette.primary.main)}, 0.2) !important`,
           },
           "&:focus": {
             outline: "none",
-            boxShadow: "0 0 0 2px rgba(115, 103, 240, 0.2)",
+            boxShadow: (theme) =>
+              `0 0 0 2px rgba(${hexToRgb(theme.palette.primary.main)}, 0.2)`,
           },
         },
       },
     },
   },
 });
+
+// Helper functions for color manipulation
+function hexToRgb(hex) {
+  // Remove # if present
+  hex = hex.replace("#", "");
+
+  // Parse the hex values
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  // Return the RGB values as a string
+  return `${r}, ${g}, ${b}`;
+}
+
+function darken(color, amount) {
+  // Remove # if present
+  color = color.replace("#", "");
+
+  // Parse the hex values
+  let r = parseInt(color.substring(0, 2), 16);
+  let g = parseInt(color.substring(2, 4), 16);
+  let b = parseInt(color.substring(4, 6), 16);
+
+  // Darken each channel
+  r = Math.max(0, Math.floor(r * (1 - amount)));
+  g = Math.max(0, Math.floor(g * (1 - amount)));
+  b = Math.max(0, Math.floor(b * (1 - amount)));
+
+  // Convert back to hex
+  return `#${r.toString(16).padStart(2, "0")}${g
+    .toString(16)
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+}
 
 export default theme;

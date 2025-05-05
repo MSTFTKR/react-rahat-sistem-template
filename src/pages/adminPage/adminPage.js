@@ -20,14 +20,6 @@ function AdminPage() {
     } else {
       setIsOpen(true);
     }
-
-    const cleanupLocalStorage = () => {
-      localStorage.clear();
-    };
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
   }, []);
   return (
     <Grid container>

@@ -13,7 +13,6 @@ import {
 import images1 from "../../assets/images/images1.jpg";
 import images2 from "../../assets/images/images2.jpg";
 import images3 from "../../assets/images/images3.png";
-import { CustomButton } from "../gridPageTemplate/Buttons/buttons";
 
 function HomePage() {
   const [isOpen, setIsOpen] = useState(true);
@@ -90,12 +89,14 @@ function HomePage() {
               </CardContent>
               <Grid container sx={{ p: 2 }}>
                 <Grid item xs={12}>
-                  <CustomButton
-                    label="Bağlan"
+                  <Button
+                    fullWidth
                     variant="outlined"
                     color="secondary"
                     // onClick={handleOpenModal}
-                  />
+                  >
+                    Bağlan
+                  </Button>
                 </Grid>
               </Grid>
             </Card>

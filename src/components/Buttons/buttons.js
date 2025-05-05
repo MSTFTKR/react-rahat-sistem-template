@@ -67,7 +67,7 @@ export const MenuButton = ({
           textTransform: "none",
           fontSize: "0.875rem",
           fontWeight: 500,
-          padding: "8px 16px",
+          padding: "6px 14px",
           minWidth: "120px",
           boxShadow: variant === "contained" ? 2 : "none",
           "&:hover": {
@@ -140,70 +140,5 @@ export const MenuButton = ({
         ))}
       </Menu>
     </Box>
-  );
-};
-
-/**
- * CustomButton component with various styles and features
- *
- * @param {Object} props
- * @param {string} props.label - Button text
- * @param {Function} props.onClick - Click event handler
- * @param {'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'} [props.color='primary'] - Button color
- * @param {'contained' | 'outlined' | 'text'} [props.variant='contained'] - Button variant
- * @param {boolean} [props.fullWidth=false] - Whether button takes full width
- * @param {boolean} [props.disabled=false] - Whether button is disabled
- * @param {boolean} [props.loading=false] - Whether to show loading spinner
- * @param {React.ReactNode} [props.startIcon] - Icon to display before text
- * @param {React.ReactNode} [props.endIcon] - Icon to display after text
- * @param {Object} [props.sx] - Additional styling
- */
-export const CustomButton = ({
-  label,
-  onClick,
-  color = "primary",
-  variant = "contained",
-  fullWidth = false,
-  disabled = false,
-  loading = false,
-  startIcon,
-  endIcon,
-  sx,
-  ...props
-}) => {
-  return (
-    <Button
-      onClick={onClick}
-      color={color}
-      variant={variant}
-      fullWidth={fullWidth}
-      disabled={disabled || loading}
-      startIcon={loading ? null : startIcon}
-      endIcon={loading ? null : endIcon}
-      sx={{
-        position: "relative",
-        borderRadius: "4px",
-        textTransform: "none",
-        fontSize: "0.875rem",
-        fontWeight: 500,
-        boxShadow: variant === "contained" ? 2 : "none",
-        "&:hover": {
-          boxShadow: variant === "contained" ? 3 : "none",
-        },
-        ...sx,
-      }}
-      {...props}
-    >
-      {loading && (
-        <CircularProgress
-          size={24}
-          sx={{
-            position: "absolute",
-            color: variant === "contained" ? "white" : `${color}.main`,
-          }}
-        />
-      )}
-      {label}
-    </Button>
   );
 };

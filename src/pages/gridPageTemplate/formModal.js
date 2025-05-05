@@ -36,7 +36,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { CustomButton } from "./Buttons/buttons";
 
 /**
  * Comprehensive form modal template with various form elements
@@ -56,7 +55,7 @@ const FormModal = ({
   loading = false,
 }) => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("xs"));
   useEffect(() => {
     if (open === false) {
       setFormData({
@@ -248,6 +247,8 @@ const FormModal = ({
           aria-label="kapat"
           size="small"
           sx={{
+            backgroundColor: "#ffffff",
+            borderRadius: "50%",
             position: "absolute",
             top: -10,
             right: -8,
@@ -262,7 +263,14 @@ const FormModal = ({
             },
           }}
         >
-          <CloseIcon sx={{ fontSize: 18, color: "#bb1515" }} />
+          <CloseIcon
+            sx={{
+              borderRadius: "50%",
+              fontSize: 18,
+              color: "#e03131",
+              padding: "6px",
+            }}
+          />
         </IconButton>
       </DialogTitle>
 
@@ -498,21 +506,23 @@ const FormModal = ({
           borderTop: `1px solid ${theme.palette.divider}`,
         }}
       >
-        <CustomButton
-          label="İptal"
+        <Button
           startIcon={<CancelIcon />}
           onClick={onClose}
           color="inherit"
           variant="outlined"
-        />
-        <CustomButton
-          label={loading ? "Kaydediliyor..." : "Kaydet"}
+        >
+          İptal
+        </Button>
+        <Button
           startIcon={<SaveIcon />}
           onClick={handleSubmit}
           color="primary"
           variant="contained"
           disabled={loading}
-        />
+        >
+          {loading ? "Kaydediliyor..." : "Kaydet"}
+        </Button>
       </DialogActions>
     </Dialog>
   );

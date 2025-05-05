@@ -81,11 +81,11 @@ const Navbar = () => {
             },
           }}
         >
-          <MoonStars color="black" />
+          {/* <MoonStars color="black" /> */}
         </Button>
         <AppsMenu />
         <UserProfileDropdown
-          title={"Mustafa Teker"}
+          title={"Mustafa Teker LTD ŞTİ MERHABa"}
           email={"mstftkrr@gmail.com"}
         />
       </Grid>

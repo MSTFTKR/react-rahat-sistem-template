@@ -7,7 +7,7 @@ import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDo
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import DateRangePicker from "../../components/DateRangePicker/index.js";
 import gridSideBar from "../../components/GridSideBar/gridSideBar.js";
-import { MenuButton, CustomButton } from "./Buttons/buttons.js";
+import { MenuButton } from "../../components/Buttons/buttons.js";
 import { FileInfo } from "tabler-icons-react";
 import { createColumnDefs } from "./columnDefs.js";
 import localStorage from "local-storage";
@@ -19,10 +19,10 @@ import {
   Pagination,
   TextField,
   MenuItem,
-  Button,
   Box,
   IconButton,
   Autocomplete,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -90,7 +90,7 @@ function GridPage() {
     }
   };
 
-  // CustomButton için tıklama işleyicisi
+  // Button için tıklama işleyicisi
   const handleSaveButtonClick = () => {
     console.log("Kaydet butonuna tıklandı");
     // Kaydetme işlemi
@@ -116,18 +116,8 @@ function GridPage() {
     if (localScroll) {
       setLastScroll(localScroll);
     }
-
-    // const cleanupLocalStorage = () => {
-    //   localStorage.clear();
-    // };
-    // window.addEventListener("beforeunload", cleanupLocalStorage);
-    // return () => {
-    //   window.removeEventListener("beforeunload", cleanupLocalStorage);
-    // };
   }, []);
-  function clearLocalStorage() {
-    localStorage.clear();
-  }
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -262,9 +252,9 @@ function GridPage() {
     };
 
     return (
-      <Button onClick={handleClick}>
+      <IconButton onClick={handleClick}>
         <FileInfo></FileInfo>
-      </Button>
+      </IconButton>
     );
   };
   const [open, setOpen] = useState(false);
@@ -462,19 +452,22 @@ function GridPage() {
               onItemClick={handleMenuItemClick}
               color="primary"
             />
-            {/* CustomButton örnekleri */}
-            <CustomButton
-              label="Kaydet"
+            {/* Button örnekleri */}
+            <Button
               color="success"
               onClick={handleSaveButtonClick}
               startIcon={<Save />}
-            />
-            <CustomButton
-              label="Modal Aç"
-              // variant="outlined"
+            >
+              Kaydet
+            </Button>
+            <Button
+              variant="outlined"
               color="secondary"
               onClick={handleOpenModal}
-            />
+            >
+              {" "}
+              Modal Aç
+            </Button>
             <FormModal
               open={openModal}
               onClose={handleCloseModal}

@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Button,
@@ -7,10 +7,11 @@ import {
   TextField,
   InputAdornment,
   IconButton,
+  Box,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import smallLogo from "../../assets/images/rahatsistem-logo.png";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -21,30 +22,42 @@ const Register = () => {
   const navigate = useNavigate();
   const [agree, setAgree] = useState(false);
 
-
   return (
     <Grid
       container
       sx={{
         height: "100vh",
+        backgroundColor: "#ffffff",
         alignItems: "center",
-        justifyContent: "space-between",
-        padding: "5vh",
+        justifyContent: {
+          xs: "center",
+          sm: "space-between",
+        },
       }}
-      md={12}
-      spacing={2}
+      xs={12}
     >
       <Grid
         item
-        md={8.5}
-        sm={8.5}
-        sx={{ display: "flex", justifyContent: "center" }}
+        xs={0}
+        md={7}
+        sx={{
+          height: "100vh",
+          display: {
+            xs: "none",
+            md: "flex",
+          },
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#dbb697",
+        }}
       >
-        {" "}
         <Grid
           component="img"
           sx={{
-            width: "80vh", // Genişliği %100 yaparak gridin tamamını kaplar
+            backgroundSize: "cover", // Resmin kapsama alanını belirtir
+            backgroundPosition: "center", // Resmin konumunu belirtir
+            backgroundRepeat: "no-repeat", // Resmin tekrarını belirtir
+            width: "100%", // Genişliği %100 yaparak gridin tamamını kaplar
             height: "80vh", // Yüksekliği otomatik yaparak orijinal oranları korur
           }}
           alt="My Image"
@@ -53,30 +66,41 @@ const Register = () => {
       </Grid>
 
       <Grid
-        item
-        md={3.5}
-        sm={3.5}
+        container
+        md={5}
+        xs={12}
         sx={{
-          display: "flex",
           flexDirection: "column",
-          gap: 3,
           alignItems: "center",
           justifyContent: "center",
-          marginTop: "20vh",
-          marginBottom: "20vh",
-          backgroundColor: "#ffffff",
-          padding: "2vh",
+
+          borderRadius: "4px",
+          gap: 2,
         }}
       >
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src={smallLogo}
+            alt="Logo"
+            style={{ width: "80px", height: "80px" }}
+          />
+        </Box>
         {/* Sağ taraftaki giriş formu */}
-
         <Grid
           item
-          md={12}
+          xs={8}
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 3,
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 1,
           }}
         >
           <Typography variant="h5">Kayıt Ol</Typography>
@@ -84,7 +108,20 @@ const Register = () => {
             Lütfen gerekli bilgileri doğru ve eksiksiz doldurunuz.
           </Typography>
         </Grid>
-        <Grid item md={12} sx={{ width: "100vh" }}>
+        <Grid
+          item
+          md={8}
+          lg={7}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "80%",
+            backgroundColor: "white",
+            gap: 2,
+          }}
+        >
           <TextField
             className="input-field"
             fullWidth
@@ -97,8 +134,6 @@ const Register = () => {
               setUsername(e.target.value);
             }}
           />
-        </Grid>
-        <Grid item md={12} sx={{ width: "100vh" }}>
           <TextField
             className="input-field"
             fullWidth
@@ -111,8 +146,6 @@ const Register = () => {
               setEmail(e.target.value);
             }}
           />
-        </Grid>
-        <Grid item md={12} sx={{ width: "100vh" }}>
           <TextField
             fullWidth
             className="input-field" // CSS class'ını ekleyin
@@ -133,27 +166,25 @@ const Register = () => {
                     edge="end"
                     size="small"
                   >
-                    {showPassword ? (
-                      <Visibility
-                        fontSize="inherit"
-                        style={{ fontSize: "1rem" }}
-                      />
-                    ) : (
-                      <VisibilityOff
-                        fontSize="inherit"
-                        style={{ fontSize: "1rem" }}
-                      />
-                    )}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 </InputAdornment>
               ),
             }}
           />
         </Grid>
+
         <Grid
           item
+          xs={10}
           md={12}
-          sx={{ display: "flex", alignItems: "center", width: "100vh" }}
+          sx={{
+            width: { xs: "100%", md: "80%" },
+            pr: 3,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Checkbox
             checked={agree}
@@ -161,16 +192,21 @@ const Register = () => {
             onChange={(e) => setAgree(e.target.checked)}
           />
           <Button
-            // onClick={}
-            className="unframed-button"
-            sx={{ color: "#786af2", textDecoration: "none" }}
+            variant="text"
+            sx={{
+              fontSize: "0.875rem", // text-sm
+              "&:hover": {
+                backgroundColor: "transparent",
+                boxShadow: "none",
+              },
+            }}
           >
             Gizlilik Politikası ve Şartlarını
           </Button>
           <Typography fontSize={14}>Kabul Ediyorum</Typography>
         </Grid>
 
-        <Grid item md={12} sx={{ width: "100%" }}>
+        <Grid item xs={5} sx={{ width: "100%" }}>
           <Button
             fullWidth
             variant="contained"
@@ -190,6 +226,7 @@ const Register = () => {
             alignItems: "center",
             justifyContent: "center",
             width: "100%",
+            gap: 2,
           }}
         >
           <Typography variant="body2">Zaten bir hesabınız var mı? </Typography>
@@ -199,8 +236,7 @@ const Register = () => {
             onClick={() => {
               navigate("/login");
             }}
-            className="unframed-button "
-            sx={{ color: "#786af2", textDecoration: "none" }}
+            sx={{ textDecoration: "none" }}
           >
             Giriş yap
           </Button>

@@ -136,3 +136,43 @@ body {
   color: #2628be !important;
 }
 /*ADMIN BUTTON*/
+
+/*LİSTE TANIMLAMASI SİDEBAR*/
+.selected-menu-item {
+  background-color: #a51616 !important;
+  border-radius: 8px !important;
+  color: white !important;
+}
+
+.selected-menu-item .MuiListItemText-primary,
+.selected-menu-item .MuiListItemIcon-root {
+  color: white !important;
+}
+
+.unselected-menu-item {
+  position: relative;
+  overflow: hidden;
+  height: 3rem;
+  border-radius: 8px;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.unselected-menu-item:hover::before {
+  transform: scaleX(1);
+}
+
+.unselected-menu-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: 8px;
+  background-color: rgba(165, 22, 22, 0.2) !important;
+  transition: all 0.475s;
+}
