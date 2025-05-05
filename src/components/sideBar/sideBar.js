@@ -390,7 +390,7 @@ const Sidebar = ({ status, toggleSidebar }) => {
           width: effectiveWidth,
           boxSizing: "border-box",
           backgroundColor: "#ffffff",
-          transition: "width 0.4s ease",
+          transition: "width 0.3s ease",
           overflowX: "hidden",
           overflowY: isHovered === true || status === true ? "" : "hidden",
           boxShadow: "2px 0 8px rgba(0, 0, 0, 0.1)",
